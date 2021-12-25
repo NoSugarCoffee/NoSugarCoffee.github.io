@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[997],{1425:function(s){s.exports=JSON.parse('{"allTagsPath":"/shixu/blog/tags","slug":"/shixu/blog/tags/hello","name":"hello","count":2,"permalink":"/shixu/blog/tags/hello"}')}}]);
