@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[510],{9484:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/maven","name":"maven","count":1,"permalink":"/blog/tags/maven"}')}}]);
