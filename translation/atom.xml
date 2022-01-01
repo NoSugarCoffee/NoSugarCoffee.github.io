@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://NoSugarCoffee.github.io/translate</id>
+    <id>https://NoSugarCoffee.github.io/translation</id>
     <title>诗序 Blog</title>
-    <updated>2022-01-01T08:59:47.568Z</updated>
+    <updated>2022-01-01T09:10:58.872Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://NoSugarCoffee.github.io/translate"/>
+    <link rel="alternate" href="https://NoSugarCoffee.github.io/translation"/>
     <subtitle>诗序 Blog</subtitle>
     <icon>https://NoSugarCoffee.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Go 的依赖注入]]></title>
         <id>Go 的依赖注入</id>
-        <link href="https://NoSugarCoffee.github.io/translate/Go 的依赖注入"/>
-        <updated>2022-01-01T08:59:47.568Z</updated>
+        <link href="https://NoSugarCoffee.github.io/translation/Go 的依赖注入"/>
+        <updated>2022-01-01T09:10:58.872Z</updated>
         <summary type="html"><![CDATA[过去几年里我一直使用Java。最近，用Go建立了一个小项目，然而 Go 生态系统中依赖注入（DI）功能缺乏让我震惊。于是我决定尝试使用 Uber 的 dig 库来构建我的项目，期间感触颇深。]]></summary>
         <author>
             <name>Shixu</name>
