@@ -4,14 +4,14 @@
         <title>诗序 Blog</title>
         <link>https://NoSugarCoffee.github.io/translate</link>
         <description>诗序 Blog</description>
-        <lastBuildDate>Sat, 01 Jan 2022 07:56:53 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 01 Jan 2022 08:59:47 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Go 的依赖注入]]></title>
             <link>https://NoSugarCoffee.github.io/translate/Go 的依赖注入</link>
             <guid>Go 的依赖注入</guid>
-            <pubDate>Sat, 01 Jan 2022 07:56:53 GMT</pubDate>
+            <pubDate>Sat, 01 Jan 2022 08:59:47 GMT</pubDate>
             <description><![CDATA[过去几年里我一直使用Java。最近，用Go建立了一个小项目，然而 Go 生态系统中依赖注入（DI）功能缺乏让我震惊。于是我决定尝试使用 Uber 的 dig 库来构建我的项目，期间感触颇深。]]></description>
         </item>
     </channel>

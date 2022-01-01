@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[151],{8122:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Go \u7684\u4f9d\u8d56\u6ce8\u5165","permalink":"/translate/Go \u7684\u4f9d\u8d56\u6ce8\u5165"}]}')}}]);

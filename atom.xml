@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://NoSugarCoffee.github.io/</id>
+    <title>诗序 Blog</title>
+    <updated>2022-01-01T08:59:47.564Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://NoSugarCoffee.github.io/"/>
+    <subtitle>诗序 Blog</subtitle>
+    <icon>https://NoSugarCoffee.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Maven Summary]]></title>
+        <id>Maven Summary</id>
+        <link href="https://NoSugarCoffee.github.io/Maven Summary"/>
+        <updated>2022-01-01T08:59:47.564Z</updated>
+        <summary type="html"><![CDATA[What is Maven]]></summary>
+        <author>
+            <name>Shixu</name>
+        </author>
+    </entry>
+</feed>
