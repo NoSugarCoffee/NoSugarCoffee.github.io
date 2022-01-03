@@ -46,12 +46,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           showReadingTime: true,
           routeBasePath: '/',
           editUrl:
-            'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/blog/',
+            'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/',
         },
         translation: {
           showReadingTime: true,
           editUrl:
-              'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/translation/',
+              'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

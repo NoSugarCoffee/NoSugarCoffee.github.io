@@ -11,10 +11,10 @@ tags: [maven, java]
 
 ## 探索前的疑问
 1. Gradle 比 maven 快在哪儿, mvnd 借鉴了什么?
-2. Maven 3 也支持 [parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) ,mvnd 有何不同?
+2. Maven 3 也支持 [parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) , mvnd 有何不同?
 
-## 安装限制
-Mvnd 0.7.1 运行依赖 jdk 11, 如不满足有以下提示:
+## 安装要求
+[Mvnd 0.7.1](https://github.com/apache/maven-mvnd/tree/0.7.1) 运行依赖 jdk 11, 如不满足有以下提示:
 ```
 org/mvndaemon/mvnd/client/DefaultClient has been compiled by a more recent version of the Java Runtime (class file version 55.0)
 ```
@@ -157,7 +157,7 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 [ERROR] -> [Help 1]
 ```
 
-#### 测试现象
+#### 结论
 1. mvnd 构建失败, 具体原因待查
 
 ### 构建 [sonar-java-v6.7.0](https://github.com/SonarSource/sonar-java/tree/6.7.0.23054)
@@ -190,8 +190,8 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 | 1| 02:13 min |
 | 2| 02:08 min |
 
-#### 测试现象
-1. case1 和 case2 相比 parallel build 提升不是很明显, 比较意外, 当然 [文档](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 中也表示和项目结构等有一定关系
+#### 结论
+1. case1 和 case2 相比 parallel build 提升不明显, 这点比较意外, 当然 [文档](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 中说明和项目结构等有一定关系
 2. case3 和 case4 相比 daemon service jvm 处于 "hot" 还是有一定优势 
 3. case2 和 case4 理论上应该一致或者接近才对, 因为两者都是从 "cold" 开始且都是 parallel build, 不明白差距是从何而来
 
@@ -204,13 +204,13 @@ Mvnd 借鉴了 daemon service 思想, 可使 service 可一直处于 "hot" 状�
 
 Q2: Maven 3 也支持 [parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) , mvnd 有何不同？
 
-Mvnd 把 maven 3 中[实验性功能 parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 开启，默认最大支持`Math.max(Runtime.getRuntime().availableProcessors() - 1, 1)`, 本质还是利用 maven 自身功能
+Mvnd 将 maven 3 的 parallel build 默认开启且线程数为 `Math.max(Runtime.getRuntime().availableProcessors() - 1, 1)`, 本质还是利用 maven 自身功能
 
-## 小结
+## 总结
 1. Mvnd 相比 maven 最大的改变是架构, 但是其目前不支持集中部署 daemon service 此种方式，更适合在本机环境，不大适合 CI 环境
     > 因为 CI 环境无法利用 running daemon 的优势, 每个 job 开始前都要启动 daemon, job 结束 daemon 退出, 和直接使用 maven 差别不大
 
-    > mvnd is primarily designed for iterative development on a developer workstation. I think it is worth trying as a drop-in replacement of stock Maven. In case of issues, the users are invited to report them in the project. I see little potential for mvnd in the area of continuous integration (CI). 来源: [mvnd-mavens-speed-daemon](https://www.infoq.com/news/2020/12/mvnd-mavens-speed-daemon/)
+    > mvnd is primarily designed for iterative development on a developer workstation. I think it is worth trying as a drop-in replacement of stock Maven. In case of issues, the users are invited to report them in the project. I see little potential for mvnd in the area of continuous integration (CI). <br/>来源: [Conversation with Peter Palaga and Guillaume Nodet ](https://www.infoq.com/news/2020/12/mvnd-mavens-speed-daemon/)
 
 2. Mvnd 相比 maven 目前来看优势不算大, 如 parallel build 在 maven 中亦可开启
 3. Parallel build 存在一些限制, 甚至出现构建失败, 对 plugin 也有一定要求
