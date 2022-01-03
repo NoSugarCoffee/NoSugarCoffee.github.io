@@ -7,6 +7,12 @@ author_image_url: https://avatars.githubusercontent.com/u/25247325
 tags: [maven, java]
 ---
 
+<head>
+  <title>Head Metadata customized title!</title>
+  <meta charSet="utf-8" />
+  <meta name="mvnd" content="mvnd" />
+</head>
+
 [Mvnd(maven daemon)](https://github.com/apache/maven-mvnd) 旨在提升 maven 构建速度, 其借鉴了 Gradle 和 Takari 的技术
 
 ## 探索前的疑问

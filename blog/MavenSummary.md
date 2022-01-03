@@ -6,6 +6,13 @@ author_title: Owner
 author_image_url: https://avatars.githubusercontent.com/u/25247325
 tags: [maven, java]
 ---
+
+<head>
+  <title>Head Metadata customized title!</title>
+  <meta charSet="utf-8" />
+  <meta name="mvn" content="summary" />
+</head>
+
 # Maven Summary
 
 ## What is Maven
