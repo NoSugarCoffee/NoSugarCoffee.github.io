@@ -1,6 +1,6 @@
 ---
-slug: Mvnd 初探
-title: Mvnd 初探
+slug: Mvnd vs Maven 的优势及使用场景
+title: Mvnd vs Maven 的优势及使用场景
 author: Shixu
 author_title: Owner
 author_image_url: https://avatars.githubusercontent.com/u/25247325
@@ -13,36 +13,41 @@ tags: [maven, java]
   <meta name="mvnd" content="mvnd" />
 </head>
 
-[Mvnd(maven daemon)](https://github.com/apache/maven-mvnd) 旨在提升 maven 构建速度, 其借鉴了 Gradle 和 Takari 的技术
+[Mvnd(maven daemon)](https://github.com/apache/maven-mvnd) 借鉴了 gradle 和 takari 的技术, 旨在提升 maven 构建速度
 
-## 探索前的疑问
-1. Gradle 比 maven 快在哪儿, mvnd 借鉴了什么?
-2. Maven 3 也支持 [parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) , mvnd 有何不同?
+本文通过实例测试及现有资料探索其较 maven3 的优势及使用场景
+
 
 ## 安装要求
 [Mvnd 0.7.1](https://github.com/apache/maven-mvnd/tree/0.7.1) 运行依赖 jdk 11, 如不满足有以下提示:
 ```
 org/mvndaemon/mvnd/client/DefaultClient has been compiled by a more recent version of the Java Runtime (class file version 55.0)
 ```
-推荐使用 [jabba](https://github.com/shyiko/jabba) 来管理 java 多版本
+推荐使用 [jabba](https://github.com/shyiko/jabba) 管理 java 多版本
 
-## 启动与观察
-执行 `mvnd` 命令即可观察到启动了 daemon service 进程, 同时该命令也充当 client 与 service 交互
+## 启停观察
+执行 `mvnd` 命令即可观察到启动了 daemon 进程, 同时该命令也充当 client 与 daemon service 交互
 
-执行 `mvnd --status` 查看 daemon service 状态
+执行 `mvnd --status` 查看 daemon 状态, 如下展示的是一个空闲状态的 daemon, 若无空闲 daemon 处理 client 请求, 则自动创建
 ```
 liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/mvnd-0.7.1-linux-amd64/bin/mvnd --status
       ID      PID                   Address   Status    RSS            Last activity  Java home                                                                                                                               
 88a359ee    69068     inet:/127.0.0.1:36633     Idle   132m  2021-12-30T12:20:43.405  /home/liangliangdai/.jabba/jdk/openjdk@1.11.0
 ```
+执行 `mvnd --stop` 停止 daemon
 
-## 实例尝鲜
+## 实例测试
 
-以下测试仅在作者本地虚拟机内运行, 运行时环境尽量一致, 如机器负载、jvm 启动参数等
+### 事先说明
+- 均基于 4 core linux 虚拟机
+- 均设置 Jvm args `-Xms128M` `Xmx2048M`
+- `-T 4` 表示开启并行构建的线程为 4 个
 
-### 构建 [jacoco-v0.8.6](https://github.com/jacoco/jacoco/tree/v0.8.6)
+### [Jacoco](https://github.com/jacoco/jacoco/tree/v0.8.6) | 20 + modules
 
-执行 `mvn clean verify` 构建情况:
+<details>
+<summary> <code>mvn clean verify</code> 构建成功</summary>
+
 ```
 [INFO] Reactor Summary for root 0.8.6:
 [INFO] 
@@ -80,7 +85,10 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 [INFO] Total time:  04:18 min
 ```
 
-执行 `mvnd clean verify` 构建出错:
+</details>
+
+<details>
+<summary> <code>mvnd clean verify</code> 构建出错</summary>
 
 ```
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-plugin-plugin:3.6.0:report (report) on project jacoco-maven-plugin: Execution report of goal org.apache.maven.plugins:maven-plugin-plugin:3.6.0:report failed: A required class was missing while executing org.apache.maven.plugins:maven-plugin-plugin:3.6.0:report: org/jacoco/report/check/IViolationsOutput
@@ -162,65 +170,70 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 [ERROR] : org.jacoco.report.check.IViolationsOutput
 [ERROR] -> [Help 1]
 ```
+</details>
 
-#### 结论
-1. mvnd 构建失败, 具体原因待查
+### [Sonar-java](https://github.com/SonarSource/sonar-java/tree/6.7.0.23054) | 10 ~ modules
 
-### 构建 [sonar-java-v6.7.0](https://github.com/SonarSource/sonar-java/tree/6.7.0.23054)
-
-**case1: 执行 `MAVEN_OPTS="-Xms128M -Xmx2048M" mvn clean verify`**
+**Case1: maven3 - Single thread build 耗时 | `mvn clean verify`**
 
 | 次数| 时间|
 | ------ | ------ |
 | 1| 02:27 min|
 | 2| 02:28 min|
 
-**case2: 执行 `MAVEN_OPTS="-Xms128M -Xmx2048M" mvn clean verify -T 1C`**
+**Case2: maven3 - Multi thread build 耗时 | `mvn clean verify -T 4`**
 
 | 次数| 时间|
 | ------ | ------ |
 | 1| 02:18 min |
 | 2| 02:23 min |
 
-**case3: Daemon 启动, 执行 `mvnd clean verify -T 1C`**
+**Case3: mvnd - Multi thread build, 首次启动 daemon 并构建耗时 | `mvnd clean verify -T 4`**
 
-| 次数| 时间|
-| ------ | ------ |
-| 1| 01:56 min |
-| 2| 01:51 min |
-
-**case4: Daemon 未启动, 执行 `mvnd clean verify -T 1C`**
+注: 首次启动是指无 daemon 运行在后台，daemon 需与本次构建一起启动
 
 | 次数| 时间|
 | ------ | ------ |
 | 1| 02:13 min |
 | 2| 02:08 min |
 
-#### 结论
-1. case1 和 case2 相比 parallel build 提升不明显, 这点比较意外, 当然 [文档](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 中说明和项目结构等有一定关系
-2. case3 和 case4 相比 daemon service jvm 处于 "hot" 还是有一定优势 
-3. case2 和 case4 理论上应该一致或者接近才对, 因为两者都是从 "cold" 开始且都是 parallel build, 不明白差距是从何而来
+**Case4: mvnd - Multi thread build, 预热 daemon 后构建耗时, `mvnd clean verify -T 4`**
 
-## 回首疑问
-Q1: Gradle 比 maven 快在哪儿, mvnd 借鉴了什么？
+| 次数| 时间|
+| ------ | ------ |
+| 1| 01:56 min |
+| 2| 01:51 min |
 
-Mvnd 借鉴了 daemon service 思想, 可使 service 可一直处于 "hot" 状态, 执行需求由 GraalVM client 转发, 从而优化 maven 每次构建都需要从新启动 jvm
+从 case4 与 case1 可得出最优情况下 mvnd 大约可以为此项目提高 20% 的构建速度
 
-![image](/img/blog/gradlevsmaven.png)
+## 结论
 
-Q2: Maven 3 也支持 [parallel build](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) , mvnd 有何不同？
+###  C/S 及 smart builder 是其快的关键因素
 
-Mvnd 将 maven 3 的 parallel build 默认开启且线程数为 `Math.max(Runtime.getRuntime().availableProcessors() - 1, 1)`, 本质还是利用 maven 自身功能
+Mvnd 借鉴 [gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html), 使其一直处于后台运行, 从而充分利用 jvm classloader cache 及 JIT 的优势, 同时 GraalVM 构建的 client 拥有较高的性能. C/S 架构是 mvnd 构建快的关键因素之一
 
-## 总结
-1. Mvnd 相比 maven 最大的改变是架构, 但是其目前不支持集中部署 daemon service 此种方式，更适合在本机环境，不大适合 CI 环境
-    > 因为 CI 环境无法利用 running daemon 的优势, 每个 job 开始前都要启动 daemon, job 结束 daemon 退出, 和直接使用 maven 差别不大
+Mvnd 借鉴 [takari smart builder](http://takari.io/book/30-team-maven.html#takari-smart-builder), 相比与 maven3 并行构建模型更优. 此为 mvnd 构建快的另一关键因素. 下图展示了 maven 3 和 mvnd parallel build 模型的区别
+![smartbuilder.png](img/smartbuilder.png)
 
-    > mvnd is primarily designed for iterative development on a developer workstation. I think it is worth trying as a drop-in replacement of stock Maven. In case of issues, the users are invited to report them in the project. I see little potential for mvnd in the area of continuous integration (CI). <br/>来源: [Conversation with Peter Palaga and Guillaume Nodet ](https://www.infoq.com/news/2020/12/mvnd-mavens-speed-daemon/)
+> sonar-java 的测试中, case4 优于 case3 很好的体现了 daemon 的优势
 
-2. Mvnd 相比 maven 目前来看优势不算大, 如 parallel build 在 maven 中亦可开启
-3. Parallel build 存在一些限制, 甚至出现构建失败, 对 plugin 也有一定要求
+> sonar-java 的测试中, case3 略由于 case2 的优势可能来自 smart build, 当然模型与项目结构等有一定关系且此处数据样本太少, 各位读者可自行测试
+
+### 相比与 CI, mvnd 更适合本地构建
+
+目之所及, CI 环境中大部分 java 应用还是串行构建, 一小部分可能使用了 maven3 的并行构建, 而 mvnd 集成于 CI 无疑是直接断了 "右臂" --- daemon
+
+> sonar-java 的测试中, case3 可理解为 CI 中运行情况
+
+> mvnd is primarily designed for iterative development on a developer workstation. I think it is worth trying as a drop-in replacement of stock Maven. In case of issues, the users are invited to report them in the project. I see little potential for mvnd in the area of continuous integration (CI). <br/>来源: [Conversation with Peter Palaga and Guillaume Nodet ](https://www.infoq.com/news/2020/12/mvnd-mavens-speed-daemon/)
+
+### 并行构建不能无脑使用
+
+[mvnd-parallel-builds.html](https://peter.palaga.org/2021/01/11/mvnd-parallel-builds.html#smart_builder_by_default) 列举了可能遇到的问题
+
+可查阅作者向社区反馈的[问题](https://github.com/apache/maven-mvnd/issues/558) 
 
 ## 参考
 - [gradle-vs-maven-performance](https://gradle.org/gradle-vs-maven-performance/)
 - [mvnd-mavens-speed-daemon](https://www.infoq.com/news/2020/12/mvnd-mavens-speed-daemon/)
+- [mvnd-parallel-builds.html](https://peter.palaga.org/2021/01/11/mvnd-parallel-builds.html#smart_builder_by_default)
