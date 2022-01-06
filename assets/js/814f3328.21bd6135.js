@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Maven Summary","permalink":"/Maven Summary"},{"title":"Mvnd \u521d\u63a2","permalink":"/Mvnd \u521d\u63a2"}]}')}}]);

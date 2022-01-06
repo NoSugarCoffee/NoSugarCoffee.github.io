@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Maven Summary","permalink":"/Maven Summary"},{"title":"Mvnd vs Maven \u7684\u4f18\u52bf\u53ca\u4f7f\u7528\u573a\u666f","permalink":"/Mvnd vs Maven \u7684\u4f18\u52bf\u53ca\u4f7f\u7528\u573a\u666f"}]}')}}]);

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://NoSugarCoffee.github.io/</id>
     <title>诗序 Blog</title>
-    <updated>2022-01-03T14:44:43.809Z</updated>
+    <updated>2022-01-06T17:30:05.706Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://NoSugarCoffee.github.io/"/>
     <subtitle>诗序 Blog</subtitle>
@@ -11,17 +11,17 @@
         <title type="html"><![CDATA[Maven Summary]]></title>
         <id>Maven Summary</id>
         <link href="https://NoSugarCoffee.github.io/Maven Summary"/>
-        <updated>2022-01-03T14:44:43.809Z</updated>
+        <updated>2022-01-06T17:30:05.706Z</updated>
         <summary type="html"><![CDATA[Head Metadata customized title!]]></summary>
         <author>
             <name>Shixu</name>
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Mvnd 初探]]></title>
-        <id>Mvnd 初探</id>
-        <link href="https://NoSugarCoffee.github.io/Mvnd 初探"/>
-        <updated>2022-01-03T14:44:43.809Z</updated>
+        <title type="html"><![CDATA[Mvnd vs Maven 的优势及使用场景]]></title>
+        <id>Mvnd vs Maven 的优势及使用场景</id>
+        <link href="https://NoSugarCoffee.github.io/Mvnd vs Maven 的优势及使用场景"/>
+        <updated>2022-01-06T17:30:05.706Z</updated>
         <summary type="html"><![CDATA[Head Metadata customized title!]]></summary>
         <author>
             <name>Shixu</name>
