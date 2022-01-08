@@ -1,6 +1,6 @@
 ---
-slug: Mvnd vs Maven 的优势及使用场景
-title: Mvnd vs Maven 的优势及使用场景
+slug: Mvnd VS Maven 的优势
+title: Mvnd VS Maven 的优势
 author: Shixu
 author_title: Owner
 author_image_url: https://avatars.githubusercontent.com/u/25247325
@@ -10,13 +10,12 @@ tags: [maven, java]
 <head>
   <title>Head Metadata customized title!</title>
   <meta charSet="utf-8" />
-  <meta name="mvnd" content="mvnd" />
+  <meta name="mvnd 优势" content="mvnd" />
 </head>
 
 [Mvnd(maven daemon)](https://github.com/apache/maven-mvnd) 借鉴了 gradle 和 takari 的技术, 旨在提升 maven 构建速度
 
-本文通过实例测试及现有资料探索其较 maven3 的优势及使用场景
-
+本文通过现有文档及实例测试, 探索其优势及使用场景
 
 ## 安装要求
 [Mvnd 0.7.1](https://github.com/apache/maven-mvnd/tree/0.7.1) 运行依赖 jdk 11, 如不满足有以下提示:
@@ -183,6 +182,8 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 
 **Case2: maven3 - Multi thread build 耗时 | `mvn clean verify -T 4`**
 
+Maven3 的[并行构建](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3)
+
 | 次数| 时间|
 | ------ | ------ |
 | 1| 02:18 min |
@@ -190,7 +191,7 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 
 **Case3: mvnd - Multi thread build, 首次启动 daemon 并构建耗时 | `mvnd clean verify -T 4`**
 
-注: 首次启动是指无 daemon 运行在后台，daemon 需与本次构建一起启动
+首次启动是指无 daemon 运行在后台，daemon 需与本次构建一起启动
 
 | 次数| 时间|
 | ------ | ------ |
@@ -210,18 +211,18 @@ liangliangdai@liangliangdai-VirtualBox:~/jacoco$ /home/liangliangdai/Downloads/m
 
 ###  C/S 及 smart builder 是其快的关键因素
 
-Mvnd 借鉴 [gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html), 使其一直处于后台运行, 从而充分利用 jvm classloader cache 及 JIT 的优势, 同时 GraalVM 构建的 client 拥有较高的性能. C/S 架构是 mvnd 构建快的关键因素之一
-
-Mvnd 借鉴 [takari smart builder](http://takari.io/book/30-team-maven.html#takari-smart-builder), 相比与 maven3 并行构建模型更优. 此为 mvnd 构建快的另一关键因素. 下图展示了 maven 3 和 mvnd parallel build 模型的区别
-![smartbuilder.png](img/smartbuilder.png)
+Mvnd 借鉴 [gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html) 的思想, 使 daemon 常驻后台, 构建请求由 [GraalVM client](https://www.graalvm.org/) 转发, 得益于 classloader cache 和 JIT, 下次构建无需重复加载已缓存在内存的 plugin classes, 同时热点代码信息也被保留, 更快甚至直接 JIT, 不像 maven 每次构建都需要新建 jvm, 故 C/S 架构是 mvnd 构建快的关键因素之一
 
 > sonar-java 的测试中, case4 优于 case3 很好的体现了 daemon 的优势
 
-> sonar-java 的测试中, case3 略由于 case2 的优势可能来自 smart build, 当然模型与项目结构等有一定关系且此处数据样本太少, 各位读者可自行测试
+Mvnd 借鉴 [takari smart builder](http://takari.io/book/30-team-maven.html#takari-smart-builder) 的技术, 相比与 maven3 并行构建模型更优. 此为 mvnd 构建快的另一关键因素. 下图展示了 maven 3 和 mvnd 并行构建模型的区别
+![smartbuilder.png](img/smartbuilder.png)
 
-### 相比与 CI, mvnd 更适合本地构建
+> sonar-java 的测试中, case3 略由于 case2 的优势可能来自 smart build, 当然此处与项目结构等有一定关系且此处样本数太少, 各位读者可自行测试
 
-目之所及, CI 环境中大部分 java 应用还是串行构建, 一小部分可能使用了 maven3 的并行构建, 而 mvnd 集成于 CI 无疑是直接断了 "右臂" --- daemon
+### 相比于 CI, mvnd 更适合本地构建
+
+当今主流的 CI 大多基于容器, 目前 mvnd daemon 只支持来自本机 client 的构建请求, 即各个 job 所属的容器只能利用自身启动的 daemon, 假如容器内只进行单次构建的话那就没那么大优势了, 而本地构建无此限制, 社区也有类似的[讨论](https://github.com/apache/maven-mvnd/issues/496)
 
 > sonar-java 的测试中, case3 可理解为 CI 中运行情况
 
@@ -229,9 +230,7 @@ Mvnd 借鉴 [takari smart builder](http://takari.io/book/30-team-maven.html#taka
 
 ### 并行构建不能无脑使用
 
-[mvnd-parallel-builds.html](https://peter.palaga.org/2021/01/11/mvnd-parallel-builds.html#smart_builder_by_default) 列举了可能遇到的问题
-
-可查阅作者向社区反馈的[问题](https://github.com/apache/maven-mvnd/issues/558) 
+请自行阅读[并行构建可能带来的问题](https://peter.palaga.org/2021/01/12/mvnd-solving-common-issues-of-parallel-builds.html) 以及作者社区反馈的[问题](https://github.com/apache/maven-mvnd/issues/558)
 
 ## 参考
 - [gradle-vs-maven-performance](https://gradle.org/gradle-vs-maven-performance/)
