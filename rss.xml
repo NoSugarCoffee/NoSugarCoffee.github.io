@@ -4,21 +4,21 @@
         <title>诗序 Blog</title>
         <link>https://NoSugarCoffee.github.io/</link>
         <description>诗序 Blog</description>
-        <lastBuildDate>Thu, 06 Jan 2022 17:30:05 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 08 Jan 2022 15:29:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Maven Summary]]></title>
             <link>https://NoSugarCoffee.github.io/Maven Summary</link>
             <guid>Maven Summary</guid>
-            <pubDate>Thu, 06 Jan 2022 17:30:05 GMT</pubDate>
+            <pubDate>Sat, 08 Jan 2022 15:29:51 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
         </item>
         <item>
-            <title><![CDATA[Mvnd vs Maven 的优势及使用场景]]></title>
-            <link>https://NoSugarCoffee.github.io/Mvnd vs Maven 的优势及使用场景</link>
-            <guid>Mvnd vs Maven 的优势及使用场景</guid>
-            <pubDate>Thu, 06 Jan 2022 17:30:05 GMT</pubDate>
+            <title><![CDATA[Mvnd VS Maven 的优势]]></title>
+            <link>https://NoSugarCoffee.github.io/Mvnd VS Maven 的优势</link>
+            <guid>Mvnd VS Maven 的优势</guid>
+            <pubDate>Sat, 08 Jan 2022 15:29:51 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
         </item>
     </channel>
