@@ -13,6 +13,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   favicon: 'img/favicon.ico',
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
+  metadata: [{name: 'google-site-verification', content: 'JuUp00xMkr_DW0Xw_LZpUryS9dZQ0vfdjJCP5lS36qo'}],
   plugins: [
     [
       '@docusaurus/plugin-content-blog',
