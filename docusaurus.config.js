@@ -13,23 +13,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   favicon: 'img/favicon.ico',
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
-  metadata: [{name: 'google-site-verification', content: 'JuUp00xMkr_DW0Xw_LZpUryS9dZQ0vfdjJCP5lS36qo'}],
   plugins: [
     [
       '@docusaurus/plugin-content-blog',
       {
-        /**
-         * Required for any multi-instance plugin
-         */
         id: 'translation',
-        /**
-         * URL route for the blog section of your site.
-         * *DO NOT* include a trailing slash.
-         */
         routeBasePath: 'translation',
-        /**
-         * Path to data on filesystem relative to site dir.
-         */
         path: './translation',
       },
     ],
@@ -63,6 +52,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [{name: 'google-site-verification', content: 'JuUp00xMkr_DW0Xw_LZpUryS9dZQ0vfdjJCP5lS36qo'}],
       navbar: {
         title: '诗序 de 小窝',
         logo: {
@@ -90,6 +80,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      algolia: {
+        apiKey: '49dc85e8a73e0d05a1529ef30bf8148c',
+        indexName: 'shixu_blog',
+        appId: '7HGYXE2ADQ',
+        placeholder: 'Search...'
       },
     }),
 });
