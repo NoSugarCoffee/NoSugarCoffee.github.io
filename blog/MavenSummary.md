@@ -13,8 +13,6 @@ tags: [maven, java]
   <meta name="mvn" content="summary" />
 </head>
 
-# Maven Summary
-
 ## What is Maven
 [TL;DR](https://maven.apache.org/guides/getting-started/index.html#What_is_Maven)
 

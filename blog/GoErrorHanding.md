@@ -1,4 +1,12 @@
-# Go 错误处理 - 最佳实践
+---
+slug: Go error handing
+title: Go 错误处理 - 最佳实践
+author: Shixu
+author_title: Owner
+author_image_url: https://avatars.githubusercontent.com/u/25247325
+tags: [golang]
+---
+
 ## 背景
 
 go 遵循 [errors are values](https://blog.golang.org/errors-are-values) 的理念，内置 error 提供的信息比较有限，如：
