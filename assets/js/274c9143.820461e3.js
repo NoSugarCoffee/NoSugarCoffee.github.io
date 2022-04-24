@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[6984],{58:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/java","name":"java","count":2,"permalink":"/tags/java"}')}}]);
