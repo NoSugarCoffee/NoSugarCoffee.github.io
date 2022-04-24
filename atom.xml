@@ -2,23 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://NoSugarCoffee.github.io/</id>
     <title>诗序 Blog</title>
-    <updated>2022-04-24T09:52:23.299Z</updated>
+    <updated>2022-04-24T10:01:21.469Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://NoSugarCoffee.github.io/"/>
     <subtitle>诗序 Blog</subtitle>
     <icon>https://NoSugarCoffee.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Go 错误处理 - 最佳实践]]></title>
-        <id>Go 错误处理 - 最佳实践</id>
-        <link href="https://NoSugarCoffee.github.io/GoErrorHanding"/>
-        <updated>2022-04-24T09:52:23.299Z</updated>
+        <id>Go error handing</id>
+        <link href="https://NoSugarCoffee.github.io/Go error handing"/>
+        <updated>2022-04-24T10:01:21.469Z</updated>
         <summary type="html"><![CDATA[背景]]></summary>
+        <author>
+            <name>Shixu</name>
+        </author>
     </entry>
     <entry>
         <title type="html"><![CDATA[Maven Summary]]></title>
         <id>Maven Summary</id>
         <link href="https://NoSugarCoffee.github.io/Maven Summary"/>
-        <updated>2022-04-24T09:52:23.299Z</updated>
+        <updated>2022-04-24T10:01:21.469Z</updated>
         <summary type="html"><![CDATA[Head Metadata customized title!]]></summary>
         <author>
             <name>Shixu</name>
@@ -28,7 +31,7 @@
         <title type="html"><![CDATA[Mvnd vs Maven]]></title>
         <id>Mvnd vs Maven</id>
         <link href="https://NoSugarCoffee.github.io/Mvnd vs Maven"/>
-        <updated>2022-04-24T09:52:23.299Z</updated>
+        <updated>2022-04-24T10:01:21.469Z</updated>
         <summary type="html"><![CDATA[Head Metadata customized title!]]></summary>
         <author>
             <name>Shixu</name>

@@ -4,28 +4,28 @@
         <title>诗序 Blog</title>
         <link>https://NoSugarCoffee.github.io/</link>
         <description>诗序 Blog</description>
-        <lastBuildDate>Sun, 24 Apr 2022 09:52:23 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 24 Apr 2022 10:01:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Go 错误处理 - 最佳实践]]></title>
-            <link>https://NoSugarCoffee.github.io/GoErrorHanding</link>
-            <guid>Go 错误处理 - 最佳实践</guid>
-            <pubDate>Sun, 24 Apr 2022 09:52:23 GMT</pubDate>
+            <link>https://NoSugarCoffee.github.io/Go error handing</link>
+            <guid>Go error handing</guid>
+            <pubDate>Sun, 24 Apr 2022 10:01:21 GMT</pubDate>
             <description><![CDATA[背景]]></description>
         </item>
         <item>
             <title><![CDATA[Maven Summary]]></title>
             <link>https://NoSugarCoffee.github.io/Maven Summary</link>
             <guid>Maven Summary</guid>
-            <pubDate>Sun, 24 Apr 2022 09:52:23 GMT</pubDate>
+            <pubDate>Sun, 24 Apr 2022 10:01:21 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
         </item>
         <item>
             <title><![CDATA[Mvnd vs Maven]]></title>
             <link>https://NoSugarCoffee.github.io/Mvnd vs Maven</link>
             <guid>Mvnd vs Maven</guid>
-            <pubDate>Sun, 24 Apr 2022 09:52:23 GMT</pubDate>
+            <pubDate>Sun, 24 Apr 2022 10:01:21 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
         </item>
     </channel>
