@@ -10,7 +10,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/blog.svg',
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
   plugins: [
@@ -38,11 +38,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           editUrl:
             'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/',
         },
-        translation: {
-          showReadingTime: true,
-          editUrl:
-              'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -54,13 +49,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     ({
       metadata: [{name: 'google-site-verification', content: 'JuUp00xMkr_DW0Xw_LZpUryS9dZQ0vfdjJCP5lS36qo'}],
       navbar: {
-        title: '诗序 de 小窝',
+        title: '技术原创',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/my_logo.gif',
         },
         items: [
-          {to: '/translation', label: 'Translation', position: 'left'},
+          {to: '/translation', label: '外刊翻译', position: 'left'},
           {
             href: 'https://nosugarcoffee.github.io/leetcode/',
             label: 'Leetcode Solutions',
@@ -80,12 +75,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-      },
-      algolia: {
-        apiKey: '49dc85e8a73e0d05a1529ef30bf8148c',
-        indexName: 'shixu_blog',
-        appId: '7HGYXE2ADQ',
-        placeholder: 'Search...'
-      },
+      }
     }),
 });
