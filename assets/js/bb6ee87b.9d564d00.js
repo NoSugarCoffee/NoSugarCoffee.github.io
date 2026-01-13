@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[8548],{5011:e=>{e.exports=JSON.parse('{"permalink":"/translation","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

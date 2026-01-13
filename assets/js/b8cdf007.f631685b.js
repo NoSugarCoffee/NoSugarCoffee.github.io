@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[1382],{4472:s=>{s.exports=JSON.parse('{"permalink":"/translation/tags/ai","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

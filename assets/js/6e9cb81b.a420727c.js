@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[8412],{8470:s=>{s.exports=JSON.parse('{"permalink":"/translation/tags/rag","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[5098],{7576:s=>{s.exports=JSON.parse('{"permalink":"/translation/tags/\u4ee3\u7801\u5e93","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

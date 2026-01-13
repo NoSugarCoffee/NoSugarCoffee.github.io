@@ -4,7 +4,7 @@
         <title>诗序 Blog</title>
         <link>https://NoSugarCoffee.github.io/</link>
         <description>诗序 Blog</description>
-        <lastBuildDate>Wed, 15 Nov 2023 03:56:26 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 13 Jan 2026 12:09:46 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
             <title><![CDATA[Go 错误处理 - 最佳实践]]></title>
             <link>https://NoSugarCoffee.github.io/Go error handing</link>
             <guid>https://NoSugarCoffee.github.io/Go error handing</guid>
-            <pubDate>Wed, 15 Nov 2023 03:56:26 GMT</pubDate>
+            <pubDate>Tue, 13 Jan 2026 12:09:46 GMT</pubDate>
             <description><![CDATA[背景]]></description>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="背景">背景<a href="https://nosugarcoffee.github.io/Go%20error%20handing#%E8%83%8C%E6%99%AF" class="hash-link" aria-label="Direct link to 背景" title="Direct link to 背景">​</a></h2>
 <p>go 遵循 <a href="https://blog.golang.org/errors-are-values" target="_blank" rel="noopener noreferrer">errors are values</a> 的理念，内置 error 提供的信息比较有限，如：</p>
@@ -53,7 +53,7 @@
             <title><![CDATA[Maven Summary]]></title>
             <link>https://NoSugarCoffee.github.io/Maven Summary</link>
             <guid>https://NoSugarCoffee.github.io/Maven Summary</guid>
-            <pubDate>Wed, 15 Nov 2023 03:56:26 GMT</pubDate>
+            <pubDate>Tue, 13 Jan 2026 12:09:46 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
             <content:encoded><![CDATA[
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-maven">What is Maven<a href="https://nosugarcoffee.github.io/Maven%20Summary#what-is-maven" class="hash-link" aria-label="Direct link to What is Maven" title="Direct link to What is Maven">​</a></h2>
@@ -153,7 +153,7 @@
             <title><![CDATA[Mvnd vs Maven]]></title>
             <link>https://NoSugarCoffee.github.io/Mvnd vs Maven</link>
             <guid>https://NoSugarCoffee.github.io/Mvnd vs Maven</guid>
-            <pubDate>Wed, 15 Nov 2023 03:56:26 GMT</pubDate>
+            <pubDate>Tue, 13 Jan 2026 12:09:46 GMT</pubDate>
             <description><![CDATA[Head Metadata customized title!]]></description>
             <content:encoded><![CDATA[
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="介绍">介绍<a href="https://nosugarcoffee.github.io/Mvnd%20vs%20Maven#%E4%BB%8B%E7%BB%8D" class="hash-link" aria-label="Direct link to 介绍" title="Direct link to 介绍">​</a></h2>

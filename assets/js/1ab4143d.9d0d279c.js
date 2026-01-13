@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[3492],{6400:a=>{a.exports=JSON.parse('{"label":"RAG","permalink":"/translation/tags/rag","allTagsPath":"/translation/tags","count":1,"unlisted":false}')}}]);
