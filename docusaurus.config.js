@@ -21,6 +21,21 @@ import {themes as prismThemes} from 'prism-react-renderer';
         path: './translation',
       },
     ],
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'trending',
+        routeBasePath: 'trending',
+        path: './reports',
+        blogTitle: 'GitHub AI Trending Reports',
+        blogDescription: 'Weekly analysis of trending AI repositories on GitHub',
+        postsPerPage: 10,
+        blogSidebarCount: 'ALL',
+        blogSidebarTitle: 'All Reports',
+        remarkPlugins: [],
+        rehypePlugins: [],
+      },
+    ],
   ],
   presets: [
     [
@@ -55,6 +70,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
         },
         items: [
           {to: '/translation', label: '外刊翻译', position: 'left'},
+          {to: '/trending', label: 'AI Trending', position: 'left'},
           {
             href: 'https://nosugarcoffee.github.io/leetcode/',
             label: 'Leetcode Solutions',

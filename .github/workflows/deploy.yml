@@ -23,6 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      
+      - name: Sync AI trending reports
+        run: yarn sync-reports
+        
       - name: Build website
         run: yarn build
 
