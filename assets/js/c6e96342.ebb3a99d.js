@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[7245],{6285(a){a.exports=JSON.parse('{"label":"DI","permalink":"/translation/tags/di","allTagsPath":"/translation/tags","count":1,"unlisted":false}')}}]);

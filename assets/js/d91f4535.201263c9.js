@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[4002],{2589(a){a.exports=JSON.parse('{"label":"go","permalink":"/translation/tags/go","allTagsPath":"/translation/tags","count":1,"unlisted":false}')}}]);

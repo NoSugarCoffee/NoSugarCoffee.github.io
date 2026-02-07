@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[1467],{8347(a){a.exports=JSON.parse('{"label":"\u4ee3\u7801\u5e93","permalink":"/translation/tags/\u4ee3\u7801\u5e93","allTagsPath":"/translation/tags","count":1,"unlisted":false}')}}]);

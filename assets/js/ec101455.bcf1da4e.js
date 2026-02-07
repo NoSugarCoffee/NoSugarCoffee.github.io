@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshixu=self.webpackChunkshixu||[]).push([[9144],{1299:e=>{e.exports=JSON.parse('{"permalink":"/tags/maven","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
