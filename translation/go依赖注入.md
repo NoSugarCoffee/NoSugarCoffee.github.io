@@ -1,6 +1,7 @@
 ---
 slug: Go 的依赖注入
 title: Go 的依赖注入
+date: 2022-01-01
 author: Shixu
 author_title: Translator
 author_image_url: https://avatars.githubusercontent.com/u/25247325
