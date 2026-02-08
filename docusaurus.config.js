@@ -66,7 +66,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
         title: '技术原创',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/my_logo.gif',
+          src: 'img/logo-light.jpg',
+          srcDark: 'img/logo-dark.jpg',
         },
         items: [
           {to: '/translation', label: '外刊翻译', position: 'left'},
