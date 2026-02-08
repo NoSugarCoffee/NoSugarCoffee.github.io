@@ -1,57 +1,52 @@
-# NoSugarCoffee.github.io
+# NoSugarCoffee
 
-Personal blog build with [Docusaurus 3](https://docusaurus.io/), a modern static website generator.
+A personal technical blog built with [Docusaurus 3](https://docusaurus.io/).
 
-## GitHub AI Trending Reports
+## Features
 
-This site includes weekly GitHub AI trending reports from the [ai-repo-insights](https://github.com/NoSugarCoffee/ai-repo-insights) project.
+- Technical articles on software development
+- Weekly GitHub trending insights
+- Multi-language support
+- Clean, responsive design
 
-### Syncing Reports
+## Development
 
-To sync the latest reports from the ai-repo-insights repository:
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+## Content Management
+
+### Syncing External Reports
+
+Sync weekly reports from external repositories:
 
 ```bash
 npm run sync-reports
 ```
 
-This command will:
-1. Clone the ai-repo-insights repository
-2. Copy report files from the `reports/` directory
-3. Add frontmatter metadata if missing
-4. Escape MDX characters for proper rendering
+Options:
+- `--dry-run` - Preview without copying
+- `--source <path>` - Use local directory
+- `--target <path>` - Custom target directory
 
-### Command Options
-
-- `--dry-run`: Preview changes without copying files
-- `--source <path>`: Use a local directory instead of cloning
-- `--target <path>`: Specify a different target directory
-- `--repo <url>`: Clone from a different repository URL
-
-### Examples
-
-```bash
-# Preview sync without making changes
-npm run sync-reports -- --dry-run
-
-# Sync from local directory
-npm run sync-reports -- --source /path/to/ai-repo-insights/reports
-
-# Sync to different target
-npm run sync-reports -- --target ./custom-reports
-```
-
-### Directory Structure
+## Project Structure
 
 ```
-reports/                    # GitHub AI trending reports
-├── 2026-02-week6.md       # Weekly report files
-└── .gitkeep               # Keeps directory in git
+blog/           # Blog posts
+docs/           # Documentation
+reports/        # Weekly insights
+src/            # Custom components
+static/         # Static assets
 ```
 
-### Report Format
+## License
 
-Reports follow the naming pattern `YYYY-MM-weekN.md` and include:
-- Frontmatter with slug, title, date, and tags
-- Overview of AI trends
-- Top 50 repositories table
-- Category breakdowns (rag, llm, vision, agent, etc.)
+MIT
