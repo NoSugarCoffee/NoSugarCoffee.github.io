@@ -1,6 +1,7 @@
 ---
 slug: 超大规模代码库的RAG实践指南
 title: 超大规模代码库的 RAG 实践指南
+date: 2026-01-13
 author: Shixu
 author_title: Translator
 author_image_url: https://avatars.githubusercontent.com/u/25247325
