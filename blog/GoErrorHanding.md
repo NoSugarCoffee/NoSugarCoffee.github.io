@@ -1,6 +1,7 @@
 ---
 slug: Go error handing
 title: Go 错误处理 - 最佳实践
+date: 2022-04-24
 author: Shixu
 author_title: Owner
 author_image_url: https://avatars.githubusercontent.com/u/25247325
