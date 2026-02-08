@@ -4,7 +4,7 @@
         <title>诗序 Blog</title>
         <link>https://NoSugarCoffee.github.io/translation</link>
         <description>诗序 Blog</description>
-        <lastBuildDate>Sat, 07 Feb 2026 16:31:38 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 08 Feb 2026 02:21:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
             <title><![CDATA[Go 的依赖注入]]></title>
             <link>https://NoSugarCoffee.github.io/translation/Go 的依赖注入</link>
             <guid>https://NoSugarCoffee.github.io/translation/Go 的依赖注入</guid>
-            <pubDate>Sat, 07 Feb 2026 16:31:38 GMT</pubDate>
+            <pubDate>Sun, 08 Feb 2026 02:21:21 GMT</pubDate>
             <description><![CDATA[过去几年里我一直使用Java。最近，用Go建立了一个小项目，然而 Go 生态系统中依赖注入（DI）功能缺乏让我震惊。于是我决定尝试使用 Uber 的 dig 库来构建我的项目，期间感触颇深。]]></description>
             <content:encoded><![CDATA[<p>过去几年里我一直使用Java。最近，用Go建立了一个小项目，然而 Go 生态系统中依赖注入（DI）功能缺乏让我震惊。于是我决定尝试使用 Uber 的 <a href="https://github.com/uber-go/dig" target="_blank" rel="noopener noreferrer">dig</a> 库来构建我的项目，期间感触颇深。</p>
 <p>我发现 DI 帮助我解决了之前在 Go 应用程序中遇到的很多问题 - 过度使用 <code>init</code> 函数，滥用全局变量和复杂的应用程序设置等。</p>
@@ -103,7 +103,7 @@
             <title><![CDATA[超大规模代码库的 RAG 实践指南]]></title>
             <link>https://NoSugarCoffee.github.io/translation/超大规模代码库的RAG实践指南</link>
             <guid>https://NoSugarCoffee.github.io/translation/超大规模代码库的RAG实践指南</guid>
-            <pubDate>Sat, 07 Feb 2026 16:31:38 GMT</pubDate>
+            <pubDate>Sun, 08 Feb 2026 02:21:21 GMT</pubDate>
             <description><![CDATA[原文作者：Tal Sheffer | 来源：qodo.ai blog]]></description>
             <content:encoded><![CDATA[<p>原文作者：Tal Sheffer | 来源：<a href="https://www.qodo.ai/blog/rag-for-large-scale-code-repos/" target="_blank" rel="noopener noreferrer">qodo.ai blog</a></p>
 <hr>
