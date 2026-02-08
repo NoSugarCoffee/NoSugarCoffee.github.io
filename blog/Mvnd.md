@@ -1,6 +1,7 @@
 ---
 slug: Mvnd vs Maven
 title: Mvnd vs Maven
+date: 2022-01-03
 author: Shixu
 author_title: Owner
 author_image_url: https://avatars.githubusercontent.com/u/25247325
