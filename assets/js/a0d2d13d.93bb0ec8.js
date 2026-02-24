@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[1110],{2890(e){e.exports=JSON.parse('{"permalink":"/trending/tags/ai","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Weekly analysis of trending AI repositories on GitHub","blogTitle":"GitHub AI Trending Reports"}')}}]);
