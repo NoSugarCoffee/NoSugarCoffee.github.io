@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[5724],{4434(s){s.exports=JSON.parse('{"label":"trending","permalink":"/trending/tags/trending","allTagsPath":"/trending/tags","count":13,"unlisted":false}')}}]);
