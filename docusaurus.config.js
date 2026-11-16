@@ -4,7 +4,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: '诗序',
-  tagline: 'Dinosaurs are cool',
+  tagline: '关于 AI 编程和代码知识库的实践笔记：RAG、代码图、Agent 与开发环境。',
   url: 'https://NoSugarCoffee.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -13,14 +13,6 @@ import {themes as prismThemes} from 'prism-react-renderer';
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
   plugins: [
-    [
-      '@docusaurus/plugin-content-blog',
-      {
-        id: 'translation',
-        routeBasePath: 'translation',
-        path: './translation',
-      },
-    ],
     [
       '@docusaurus/plugin-content-blog',
       {
@@ -42,19 +34,33 @@ import {themes as prismThemes} from 'prism-react-renderer';
         opmlUrl: 'https://raw.githubusercontent.com/NoSugarCoffee/rss-feeds/main/feeds.opml',
       },
     ],
+    [
+      // The blog used to live at the site root and translations at /translation;
+      // keep links people already shared working after the move to /archive.
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {from: '/Go error handing', to: '/archive/Go error handing'},
+          {from: '/Maven Summary', to: '/archive/Maven Summary'},
+          {from: '/Mvnd vs Maven', to: '/archive/Mvnd vs Maven'},
+          {from: '/translation/Go 的依赖注入', to: '/archive/Go 的依赖注入'},
+          {from: '/translation/超大规模代码库的RAG实践指南', to: '/articles'},
+          {from: '/translation', to: '/archive'},
+        ],
+      },
+    ],
   ],
   presets: [
     [
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
-        },
+        docs: false,
         blog: {
           showReadingTime: true,
-          routeBasePath: '/',
+          routeBasePath: 'archive',
+          blogTitle: '归档',
+          blogSidebarTitle: '归档',
           editUrl:
             'https://github.com/NoSugarCoffee/NoSugarCoffee.github.io/edit/master/',
         },
@@ -69,16 +75,17 @@ import {themes as prismThemes} from 'prism-react-renderer';
     ({
       metadata: [{name: 'google-site-verification', content: 'JuUp00xMkr_DW0Xw_LZpUryS9dZQ0vfdjJCP5lS36qo'}],
       navbar: {
-        title: '技术原创',
+        title: '诗序',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo-dark.png',
           srcDark: 'img/logo-light.png',
         },
         items: [
-          {to: '/translation', label: '外刊翻译', position: 'left'},
+          {to: '/articles', label: '文章', position: 'left'},
           {to: '/trending', label: 'AI Trending', position: 'left'},
-          {to: '/feeds', label: '文章与订阅', position: 'left'},
+          {to: '/archive', label: '归档', position: 'left'},
+          {to: '/feeds', label: '订阅', position: 'right'},
           {
             href: 'https://nosugarcoffee.github.io/leetcode/',
             label: 'Leetcode Solutions',
