@@ -3,6 +3,8 @@
 
 const {XMLParser} = require('fast-xml-parser');
 
+const FETCH_TIMEOUT_MS = 30_000;
+
 class OpmlFetchError extends Error {
   constructor(url, reason) {
     super(`Could not load the RSS subscription list from ${url}: ${reason}`);
@@ -32,8 +34,8 @@ module.exports = function rssFeedsPlugin(context, options) {
   return {
     name: 'rss-feeds',
     async loadContent() {
-      const response = await fetch(options.opmlUrl).catch((error) => {
-        throw new OpmlFetchError(options.opmlUrl, error.message);
+      const response = await fetch(options.opmlUrl, {signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)}).catch((error) => {
+        throw new OpmlFetchError(options.opmlUrl, error.cause?.message ?? error.message);
       });
       if (!response.ok) {
         throw new OpmlFetchError(options.opmlUrl, `HTTP ${response.status}`);
@@ -41,6 +43,13 @@ module.exports = function rssFeedsPlugin(context, options) {
       const groups = parseOpml(await response.text());
       if (groups.length === 0) {
         throw new OpmlFetchError(options.opmlUrl, 'the file contains no feed groups');
+      }
+      const emptyGroup = groups.find((group) => group.feeds.length === 0);
+      if (emptyGroup) {
+        throw new OpmlFetchError(
+          options.opmlUrl,
+          `"${emptyGroup.name}" has no feeds; every top-level outline must be a group of feeds`,
+        );
       }
       return {opmlUrl: options.opmlUrl, groups};
     },

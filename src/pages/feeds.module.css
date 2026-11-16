@@ -63,7 +63,8 @@
   border-radius: 4px;
   font-size: 0.75rem;
   color: #fff;
-  background: #f26522;
+  /* Darker than the usual RSS orange so 12px white text meets WCAG AA (4.5:1). */
+  background: #c2410c;
 }
 
 .feedLink:hover {

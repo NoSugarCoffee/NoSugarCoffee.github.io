@@ -11,6 +11,7 @@ const path = require('path');
 
 const ARTICLES_FILE = path.join(__dirname, '..', 'src', 'data', 'wechat-articles.json');
 const ARTICLE_URL_PATTERN = /^https:\/\/mp\.weixin\.qq\.com\/s\/[\w-]+$/;
+const FETCH_TIMEOUT_MS = 30_000;
 
 class ArticleMetadataError extends Error {
   constructor(url, field) {
@@ -22,18 +23,27 @@ class ArticleMetadataError extends Error {
   }
 }
 
+// Covers what WeChat emits in og: values: numeric references and the XML
+// entities. Anything else is left as-is and shows up in the review of the diff.
+const NAMED_ENTITIES = {quot: '"', apos: "'", lt: '<', gt: '>', amp: '&', nbsp: ' '};
+
 function decodeHtmlEntities(text) {
-  return text
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&');
+  return text.replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (entity, body) => {
+    if (body[0] !== '#') return NAMED_ENTITIES[body.toLowerCase()] ?? entity;
+    const codePoint = body[1].toLowerCase() === 'x' ? parseInt(body.slice(2), 16) : Number(body.slice(1));
+    return String.fromCodePoint(codePoint);
+  });
+}
+
+function readAttribute(tag, name) {
+  const match = tag.match(new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, 'i'));
+  return match ? match[1] ?? match[2] : null;
 }
 
 function readMetaProperty(html, property) {
-  const match = html.match(new RegExp(`<meta property="${property}" content="([^"]*)"`));
-  return match ? decodeHtmlEntities(match[1]) : null;
+  const tag = (html.match(/<meta\b[^>]*>/gi) ?? []).find((meta) => readAttribute(meta, 'property') === property);
+  const content = tag ? readAttribute(tag, 'content') : null;
+  return content === null ? null : decodeHtmlEntities(content);
 }
 
 function parseArticle(url, html) {
@@ -68,7 +78,10 @@ async function main(url) {
     );
   }
 
-  const response = await fetch(url, {headers: {'User-Agent': 'Mozilla/5.0 (Macintosh)'}});
+  const response = await fetch(url, {
+    headers: {'User-Agent': 'Mozilla/5.0 (Macintosh)'},
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
   if (!response.ok) {
     throw new Error(`Fetching ${url} returned HTTP ${response.status}.`);
   }
@@ -81,6 +94,6 @@ async function main(url) {
 }
 
 main(process.argv[2]).catch((error) => {
-  console.error(error.message);
+  console.error(error.cause ? `${error.message}: ${error.cause.message ?? error.cause}` : error.message);
   process.exit(1);
 });
