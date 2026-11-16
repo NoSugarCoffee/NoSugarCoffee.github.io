@@ -1,0 +1,30 @@
+plugins/rss-feeds/index.js
+  s_42173c093319fa::t_245845904aa2b1 6-7
+  s_42173c093319fa::t_35f03b2f33eec5 51
+  s_42173c093319fa::t_86ad3cfd9ba3e4 37-38,47-50,52
+scripts/add-wechat-article.js
+  s_42173c093319fa::t_e0d0c46a24a12c 81-84
+  s_42173c093319fa::t_325cc1c8c23d51 26-29,31-40,44-46
+  s_42173c093319fa::t_a9d5d0ea04ed85 14
+  s_42173c093319fa::t_3d99c8499d5ab3 97
+src/pages/feeds.module.css
+  s_42173c093319fa::t_eab00a7f62ef1f 66-67
+package-lock.json
+  s_42173c093319fa::t_1fac9ed2a34ec8 16,7213-7230,14940-14951,21807-21814,26936-26939
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "1d67b4afc41d2efff4ac8cb7d24378e4bf9e8f09",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
