@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "sync-reports": "node scripts/sync-reports.js"
+    "sync-reports": "node scripts/sync-reports.js",
+    "add-wechat": "node scripts/add-wechat-article.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.0.0",
@@ -20,6 +21,7 @@
     "@mdx-js/react": "^3.0.0",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
+    "fast-xml-parser": "^4.5.0",
     "file-loader": "^6.2.0",
     "gray-matter": "^4.0.3",
     "prism-react-renderer": "^2.1.0",

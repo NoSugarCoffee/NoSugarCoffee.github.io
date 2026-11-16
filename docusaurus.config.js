@@ -36,6 +36,12 @@ import {themes as prismThemes} from 'prism-react-renderer';
         rehypePlugins: [],
       },
     ],
+    [
+      require.resolve('./plugins/rss-feeds'),
+      {
+        opmlUrl: 'https://raw.githubusercontent.com/NoSugarCoffee/rss-feeds/main/feeds.opml',
+      },
+    ],
   ],
   presets: [
     [
@@ -72,6 +78,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
         items: [
           {to: '/translation', label: '外刊翻译', position: 'left'},
           {to: '/trending', label: 'AI Trending', position: 'left'},
+          {to: '/feeds', label: '文章与订阅', position: 'left'},
           {
             href: 'https://nosugarcoffee.github.io/leetcode/',
             label: 'Leetcode Solutions',
