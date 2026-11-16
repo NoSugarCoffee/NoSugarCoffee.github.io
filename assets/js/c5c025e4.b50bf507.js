@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkshixu=globalThis.webpackChunkshixu||[]).push([[6014],{5610(a){a.exports=JSON.parse('{"label":"java","permalink":"/archive/tags/java","allTagsPath":"/archive/tags","count":2,"unlisted":false}')}}]);
