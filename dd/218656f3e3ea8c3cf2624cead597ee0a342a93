@@ -1,0 +1,21 @@
+src/pages/index.module.css
+  s_42173c093319fa::t_c4644881dcce99 1,3-28,32-38,41-66
+src/pages/index.js
+  s_42173c093319fa::t_b2a396dacd3b82 1-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "dd218656f3e3ea8c3cf2624cead597ee0a342a93",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
