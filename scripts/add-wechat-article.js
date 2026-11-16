@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Usage: yarn add-wechat <https://mp.weixin.qq.com/s/...>
+// Usage: yarn add-wechat <https://mp.weixin.qq.com/s/...> [more links...]
 //
 // WeChat offers no feed or usable API for an Official Account's own articles
 // (see the PR that added this script), so each article is added by link. The
@@ -71,13 +71,7 @@ function withArticle(articles, article) {
   );
 }
 
-async function main(url) {
-  if (!url || !ARTICLE_URL_PATTERN.test(url)) {
-    throw new Error(
-      `Expected a short WeChat article link like https://mp.weixin.qq.com/s/<id>, got: ${url ?? '(nothing)'}`,
-    );
-  }
-
+async function fetchArticle(url) {
   const response = await fetch(url, {
     headers: {'User-Agent': 'Mozilla/5.0 (Macintosh)'},
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
@@ -85,15 +79,35 @@ async function main(url) {
   if (!response.ok) {
     throw new Error(`Fetching ${url} returned HTTP ${response.status}.`);
   }
-  const article = parseArticle(url, await response.text());
-
-  const articles = JSON.parse(fs.readFileSync(ARTICLES_FILE, 'utf8'));
-  fs.writeFileSync(ARTICLES_FILE, `${JSON.stringify(withArticle(articles, article), null, 2)}\n`);
-  const publishedDate = new Date(article.publishedAt).toLocaleDateString('sv-SE', {timeZone: 'Asia/Shanghai'});
-  console.log(`Added "${article.title}" (${publishedDate}) to ${path.relative(process.cwd(), ARTICLES_FILE)}`);
+  return parseArticle(url, await response.text());
 }
 
-main(process.argv[2]).catch((error) => {
+async function main(urls) {
+  const invalidUrls = urls.filter((url) => !ARTICLE_URL_PATTERN.test(url));
+  if (urls.length === 0 || invalidUrls.length > 0) {
+    throw new Error(
+      `Expected one or more short WeChat article links like https://mp.weixin.qq.com/s/<id>, got: ${
+        invalidUrls.join(', ') || '(nothing)'
+      }`,
+    );
+  }
+
+  // Fetch every article before writing, so one bad link leaves the file untouched.
+  const fetched = [];
+  for (const url of urls) {
+    fetched.push(await fetchArticle(url));
+  }
+
+  const articles = fetched.reduce(withArticle, JSON.parse(fs.readFileSync(ARTICLES_FILE, 'utf8')));
+  fs.writeFileSync(ARTICLES_FILE, `${JSON.stringify(articles, null, 2)}\n`);
+  for (const article of fetched) {
+    const publishedDate = new Date(article.publishedAt).toLocaleDateString('sv-SE', {timeZone: 'Asia/Shanghai'});
+    console.log(`Added "${article.title}" (${publishedDate})`);
+  }
+  console.log(`Wrote ${articles.length} articles to ${path.relative(process.cwd(), ARTICLES_FILE)}`);
+}
+
+main(process.argv.slice(2)).catch((error) => {
   console.error(error.cause ? `${error.message}: ${error.cause.message ?? error.cause}` : error.message);
   process.exit(1);
 });
