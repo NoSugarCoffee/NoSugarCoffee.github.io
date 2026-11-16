@@ -19,7 +19,12 @@ function Hero() {
         </div>
         <figure className={styles.qr}>
           <img src={useBaseUrl('/img/wechat-qrcode.jpg')} alt="公众号 代码之序 二维码" width="160" height="160" />
-          <figcaption>扫码关注</figcaption>
+          {/* A phone can't scan its own screen, so mobile visitors need the account name. */}
+          <figcaption>
+            扫码关注
+            <br />
+            或在微信搜索「代码之序」
+          </figcaption>
         </figure>
       </div>
     </header>
