@@ -1,0 +1,29 @@
+package.json
+  s_42173c093319fa::t_6098c6272054a4 20
+docusaurus.config.js
+  s_42173c093319fa::t_f2a924118e9aff 78
+  s_42173c093319fa::t_a5b7d733806421 37-51
+  s_42173c093319fa::t_52b8e7fc53e2ae 85,87-88
+  s_42173c093319fa::t_6bc903e83ca3f1 7
+  s_42173c093319fa::t_3c7bd7ddf0e8db 58,61-63
+yarn.lock
+  s_42173c093319fa::t_8fc36272b36eed 1389-1403
+package-lock.json
+  s_42173c093319fa::t_8fc36272b36eed 12,2737-2760,18531-18544
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "4c9ff640d7c659c815a8f97cff466fd58f958fa2",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
