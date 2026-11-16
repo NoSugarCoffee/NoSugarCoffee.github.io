@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://mp.weixin.qq.com/s/YBsfvZupJySfTzENUP_Jvw",
+    "title": "从 Ubuntu 到 macOS，我把开发环境交给了 Nix",
+    "description": "",
+    "cover": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/hqhicgibNHybTdTdy2p4sSaMg75V9VPInm8ruKuhkC7SKTiaCEHYo9XX61m4UrCiciblAbGMeurVBT7EXtFoKZOFs1VWn6tyBDgjYUKlicuafDRA0/0?wx_fmt=jpeg",
+    "publishedAt": "2026-08-29T16:21:49.000Z"
+  },
+  {
+    "url": "https://mp.weixin.qq.com/s/53aYjNYp6jzRoNAPuFzBVg",
+    "title": "【译】Karpathy 风格规则在 OpenClaw 上的实测：智能体写不出更好的代码，但能更高效地写完",
+    "description": "原文：Karpathy skills on OpenClaw: agents don’t write bett",
+    "cover": "https://mmbiz.qpic.cn/mmbiz_jpg/hqhicgibNHybSMVaX3C0rcm6Ct7sk4VAmhOibTtWVAmspjtaibia1FehIddMyOtgSqqgY7pYRKeZ5TNZH9CUjyOOswXmLLYRRBbZMAEybfiawYr9E/0?wx_fmt=jpeg",
+    "publishedAt": "2026-05-18T01:52:33.000Z"
+  },
+  {
+    "url": "https://mp.weixin.qq.com/s/pVdQUE4CmBEq2uaFzwhBcQ",
+    "title": "从 OpenViking 聊起：我们在代码知识库这条路上的几点思考",
+    "description": "字节跳动 Viking 团队最近发了一篇 OpenViking 实战教程，讲如何用 OpenViking 搭建",
+    "cover": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/hqhicgibNHybRxZC28KCRZoJJRiaxcfQVZrxhAHib2NrJt9uicEK1IX5c0gxIdqhib7e3icmG2hgBOOoyeM8XoibaOULAtSSdbKzcJSO7iaUN5TdJuB8/0?wx_fmt=jpeg",
+    "publishedAt": "2026-03-25T02:31:25.000Z"
+  },
+  {
+    "url": "https://mp.weixin.qq.com/s/fiF4sUAq_0TTKLWm_Nx75g",
+    "title": "Cursor Agent Trace: AI 代码归因新范式",
+    "description": "当 AI 生成的代码占据代码库的大半江山，一个根本性问题浮出水面：我们如何追溯每一行代码的来源？",
+    "cover": "https://mmbiz.qpic.cn/mmbiz_jpg/hqhicgibNHybRnGqMrOF2tyBicYiauxRqJlGia23wWAUfkoP8LHsIPHq3iaiaxKr9iciaHQSSlGSicNGyo626rMjjIrzEfRdSibnc0licrQuGziastTI8gRI/0?wx_fmt=jpeg",
+    "publishedAt": "2026-02-08T13:48:30.000Z"
+  },
+  {
+    "url": "https://mp.weixin.qq.com/s/l5HQu2V3kU4fGzPdEiDNoQ",
+    "title": "超大规模代码库的 RAG 实践指南 | RAG for a Codebase with 10k Repos",
+    "description": "",
+    "cover": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/mRnUiaBWEPUtkAq0cwSsbyXSeDzZNUl5MAHomFoQHnU0uhc3dzlrZq02chpODCYHpDFX4zMOCfk0vR3sLWBugww/0?wx_fmt=jpeg",
+    "publishedAt": "2026-01-12T13:43:33.000Z"
+  }
+]

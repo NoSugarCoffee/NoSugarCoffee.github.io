@@ -1,0 +1,23 @@
+.feedGroup {
+  margin-top: 1.5rem;
+}
+
+.feedList li {
+  margin-bottom: 0.25rem;
+}
+
+.feedLink {
+  margin-left: 0.5rem;
+  padding: 0 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #fff;
+  /* Darker than the usual RSS orange so 12px white text meets WCAG AA (4.5:1). */
+  background: #c2410c;
+}
+
+.feedLink:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.85;
+}

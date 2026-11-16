@@ -1,23 +1,67 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
+.hero {
   padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
-.buttons {
+.heroInner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  gap: 2rem;
+}
+
+.heroText {
+  flex: 1 1 320px;
+}
+
+.heroTitle {
+  font-size: 3rem;
+}
+
+.heroSummary {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.qr {
+  margin: 0;
+  text-align: center;
+}
+
+/* The white frame keeps the code scannable on the dark theme's background. */
+.qr img {
+  display: block;
+  padding: 8px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--ifm-global-shadow-lw);
+}
+
+.qr figcaption {
+  margin-top: 0.5rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.allArticles {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+@media (max-width: 996px) {
+  .hero {
+    padding: 2.5rem 0;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .qr {
+    width: 100%;
+  }
+
+  .qr img {
+    margin: 0 auto;
+  }
 }
