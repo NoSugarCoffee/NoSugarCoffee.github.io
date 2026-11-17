@@ -1,0 +1,23 @@
+.github/workflows/deploy.yml
+  s_42173c093319fa::t_57469df2f265f7 7-10
+scripts/sync-reports.js
+  s_42173c093319fa::t_3d221fabaa6fe0 2-4,7,9,12-13,15-21,23-26,28,31-34,37-42,44,46,49-54,57-58,60-61,63-64,69,73,75
+.gitignore
+  s_42173c093319fa::t_57469df2f265f7 22-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "ffd8c1ad6fc3d56955571c83733ac9605d95a234",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
