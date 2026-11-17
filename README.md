@@ -23,7 +23,7 @@
 | **归档** `/archive` | Older blog posts on Go and Maven | `blog/` |
 | **订阅** `/feeds` | The RSS feeds I read, grouped | `feeds.opml` in [rss-feeds](https://github.com/NoSugarCoffee/rss-feeds), read at build time |
 
-Old URLs keep working. `/trending/...` redirects to `/radar`, and the old post and translation URLs redirect to their new pages. The redirect list is in `docusaurus.config.js`.
+Old URLs keep working. The 64 `/trending` URLs (issues, pages and tags) redirect to `/radar`, but `/trending/rss.xml` does not; subscribers should use `/radar/rss.xml`. The old post and translation URLs redirect to their new pages. The redirect list is in `docusaurus.config.js`.
 
 ---
 
@@ -60,7 +60,7 @@ yarn start
 Pass one or more article links:
 
 ```bash
-yarn add-wechat https://mp.weixin.qq.com/s/<id>
+yarn add-wechat https://mp.weixin.qq.com/s/ARTICLE_ID
 ```
 
 The script reads each article's title, description, cover and publish time, and adds it to `src/data/wechat-articles.json`, newest first. If any link fails, it writes nothing. Commit the JSON file.
