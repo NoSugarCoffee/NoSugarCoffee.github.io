@@ -1,0 +1,29 @@
+docusaurus.config.js
+  s_42173c093319fa::t_f1e630ea080d0f 2,36-37,75
+scripts/check-radar.test.js
+  s_42173c093319fa::t_698b645886ef5f 1-52
+src/data/legacy-trending-routes.json
+  s_42173c093319fa::t_5feae73d717061 1-66
+src/components/Radar/IssuePage.js
+  s_42173c093319fa::t_f1e630ea080d0f 3-68,71-73,75,77-116
+src/components/Radar/ArchivePage.js
+  s_42173c093319fa::t_f1e630ea080d0f 3-4,8,10-20
+src/components/Radar/styles.module.css
+  s_42173c093319fa::t_f1e630ea080d0f 1-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "4009a1fdb5ce13558838bab157d8772ad18e07bc",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
