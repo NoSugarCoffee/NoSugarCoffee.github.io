@@ -1,4 +1,5 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import legacyTrendingRoutes from './src/data/legacy-trending-routes.json';
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -13,21 +14,6 @@ import {themes as prismThemes} from 'prism-react-renderer';
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
   plugins: [
-    [
-      '@docusaurus/plugin-content-blog',
-      {
-        id: 'trending',
-        routeBasePath: 'trending',
-        path: './reports',
-        blogTitle: 'GitHub AI Trending Reports',
-        blogDescription: 'Weekly analysis of trending AI repositories on GitHub',
-        postsPerPage: 10,
-        blogSidebarCount: 'ALL',
-        blogSidebarTitle: 'All Reports',
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-    ],
     [require.resolve('./plugins/ai-radar'), {dataDir: 'radar-data'}],
     [
       require.resolve('./plugins/rss-feeds'),
@@ -47,6 +33,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
           {from: '/translation/Go 的依赖注入', to: '/archive/Go 的依赖注入'},
           {from: '/translation/超大规模代码库的RAG实践指南', to: '/articles'},
           {from: '/translation', to: '/archive'},
+          // The weekly reports at /trending became the AI 开源雷达 at /radar.
+          ...legacyTrendingRoutes.map((from) => ({from, to: '/radar'})),
         ],
       },
     ],
@@ -84,7 +72,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
         },
         items: [
           {to: '/articles', label: '文章', position: 'left'},
-          {to: '/trending', label: 'AI Trending', position: 'left'},
+          {to: '/radar', label: 'AI 雷达', position: 'left'},
           {to: '/archive', label: '归档', position: 'left'},
           {to: '/feeds', label: '订阅', position: 'right'},
           {
