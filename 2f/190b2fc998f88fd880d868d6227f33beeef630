@@ -1,0 +1,29 @@
+plugins/ai-radar/index.js
+  s_42173c093319fa::t_0504d171d313df 1-65
+src/components/Radar/IssuePage.js
+  s_42173c093319fa::t_0504d171d313df 1-12
+plugins/ai-radar/issues.test.js
+  s_42173c093319fa::t_3b0408f6dc619f 1-59
+docusaurus.config.js
+  s_42173c093319fa::t_0504d171d313df 31
+plugins/ai-radar/issues.js
+  s_42173c093319fa::t_753c6b9199ac8d 1-86
+src/components/Radar/ArchivePage.js
+  s_42173c093319fa::t_0504d171d313df 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "2f190b2fc998f88fd880d868d6227f33beeef630",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
