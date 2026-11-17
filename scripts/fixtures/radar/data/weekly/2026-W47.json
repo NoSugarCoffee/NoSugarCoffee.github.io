@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "2026-W47",
+  "year": 2026,
+  "week": 47,
+  "generatedAt": "2026-11-16T04:46:00Z",
+  "headline": "Agent 技能包扎堆",
+  "summary": "本周新冒头的项目大多在给编码 agent 补技能：设计品味、浏览器操作和代码评审都被拆成可复用的技能包。",
+  "newProjects": [
+    {
+      "source": "github",
+      "id": "vercel-labs/agent-desktop",
+      "url": "https://github.com/vercel-labs/agent-desktop",
+      "name": "agent-desktop",
+      "description": "Computer use CLI for AI agents",
+      "comment": "让 agent 直接操作桌面应用的命令行工具，Vercel 出品，月增两万多星。",
+      "language": "rust",
+      "createdAt": "2026-10-28T09:12:00Z",
+      "stars": 22950,
+      "starsThisWeek": 4719,
+      "starsThisMonth": 22413
+    },
+    {
+      "source": "github",
+      "id": "kajisho5/ffmpeg-skill",
+      "url": "https://github.com/kajisho5/ffmpeg-skill",
+      "name": "ffmpeg-skill",
+      "description": "Local video editor for coding agents",
+      "comment": "把 42 个 FFmpeg 操作包装成 MCP 工具，剪辑、字幕、响度都能交给 agent。",
+      "language": "python",
+      "createdAt": "2026-11-03T02:00:00Z",
+      "stars": 1180,
+      "starsThisWeek": 1110,
+      "starsThisMonth": null
+    }
+  ],
+  "newEntries": [
+    {
+      "source": "github",
+      "id": "alibaba/open-code-review",
+      "url": "https://github.com/alibaba/open-code-review",
+      "name": "open-code-review",
+      "description": "Hybrid architecture code review tool",
+      "comment": "确定性流水线加 LLM agent 的代码评审工具，带多语言规则集，阿里内部规模验证过。",
+      "language": "go",
+      "createdAt": "2025-06-11T00:00:00Z",
+      "stars": 9800,
+      "starsThisWeek": 2238,
+      "starsThisMonth": null
+    },
+    {
+      "source": "github",
+      "id": "vllm-project/vllm",
+      "url": "https://github.com/vllm-project/vllm",
+      "name": "vllm",
+      "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+      "comment": "高吞吐的 LLM 推理服务引擎，本周因新版本重新回到榜单。",
+      "language": "python",
+      "createdAt": "2023-02-09T00:00:00Z",
+      "stars": 61000,
+      "starsThisWeek": null,
+      "starsThisMonth": 3327
+    },
+    {
+      "source": "github",
+      "id": "mudler/LocalAI",
+      "url": "https://github.com/mudler/LocalAI",
+      "name": "LocalAI",
+      "description": "LocalAI is the open-source AI engine.",
+      "comment": "不需要 GPU 的本地 AI 引擎，一个服务同时跑文本、图像和语音模型。",
+      "language": "go",
+      "createdAt": "2023-03-18T00:00:00Z",
+      "stars": 36000,
+      "starsThisWeek": null,
+      "starsThisMonth": 960
+    }
+  ]
+}
