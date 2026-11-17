@@ -4,8 +4,8 @@
   "year": 2026,
   "week": 47,
   "generatedAt": "2026-11-16T04:46:00Z",
-  "headline": "Agent 技能包扎堆",
-  "summary": "本周新冒头的项目大多在给编码 agent 补技能：设计品味、浏览器操作和代码评审都被拆成可复用的技能包。",
+  "headline": "Agent 工具与推理引擎上榜",
+  "summary": "本周新项目集中在 agent 的桌面操作与视频处理，代码评审和本地推理引擎也重新进入榜单。",
   "newProjects": [
     {
       "source": "github",

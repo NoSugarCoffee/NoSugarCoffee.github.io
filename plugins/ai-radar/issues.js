@@ -17,6 +17,9 @@ function parseIssue(fileName, text) {
   } catch (error) {
     throw new RadarDataError(fileName, `not valid JSON (${error.message})`);
   }
+  if (issue === null || typeof issue !== 'object' || Array.isArray(issue)) {
+    throw new RadarDataError(fileName, 'content must be a JSON object');
+  }
   if (issue.schemaVersion !== SCHEMA_VERSION) {
     throw new RadarDataError(fileName, `schemaVersion ${issue.schemaVersion} is not supported (expected ${SCHEMA_VERSION})`);
   }
@@ -28,8 +31,23 @@ function parseIssue(fileName, text) {
   if (`${issue.id}.json` !== fileName) {
     throw new RadarDataError(fileName, `id "${issue.id}" does not match the file name`);
   }
+  if (!Number.isInteger(issue.year) || !Number.isInteger(issue.week)) {
+    throw new RadarDataError(fileName, 'year and week must be integers');
+  }
+  if (typeof issue.generatedAt !== 'string' || Number.isNaN(Date.parse(issue.generatedAt))) {
+    throw new RadarDataError(fileName, `generatedAt "${issue.generatedAt}" is not a valid date`);
+  }
   if (!Array.isArray(issue.newProjects) || !Array.isArray(issue.newEntries)) {
     throw new RadarDataError(fileName, 'newProjects and newEntries must be arrays');
+  }
+  for (const collection of ['newProjects', 'newEntries']) {
+    issue[collection].forEach((item, index) => {
+      for (const field of ['id', 'name', 'url', 'comment']) {
+        if (item === null || typeof item !== 'object' || Array.isArray(item) || typeof item[field] !== 'string') {
+          throw new RadarDataError(fileName, `${collection}[${index}] must have string field "${field}"`);
+        }
+      }
+    });
   }
   return issue;
 }
@@ -42,6 +60,13 @@ function sortIssues(issues) {
 
 function issueTitle(issue) {
   return `AI 开源雷达 · 第 ${issue.week} 周：${issue.headline}`;
+}
+
+function formatChinaDate(iso, options) {
+  const parts = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', ...options})
+    .formatToParts(new Date(iso))
+    .reduce((values, part) => ({...values, [part.type]: part.value}), {});
+  return [parts.year, parts.month, parts.day].filter(Boolean).join('-');
 }
 
 function escapeXml(text) {
@@ -83,4 +108,4 @@ function buildRss(issues, siteUrl) {
   ].join('\n');
 }
 
-module.exports = {RadarDataError, parseIssue, sortIssues, issueTitle, buildRss};
+module.exports = {RadarDataError, parseIssue, sortIssues, issueTitle, formatChinaDate, buildRss};

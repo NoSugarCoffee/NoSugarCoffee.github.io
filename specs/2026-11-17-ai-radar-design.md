@@ -67,7 +67,7 @@
 
 - **「在榜」的定义（我的决定）**：本周抓到的 trending 日榜、周榜、月榜三个页面里，经过 AI 过滤后的全部仓库（取并集，不再先截成前 50）。理由：新项目往往先上日榜，等进周榜、月榜时已经不新了。代价是每周的 API 调用从约 50 次涨到最多约 375 次，仍在 `GITHUB_TOKEN` 每小时 1000 次的额度之内。`starsThisWeek` 只有上了周榜才有值。
 - **历史回填（我的决定）**：第一次运行前，用生成器仓库里 42 份旧 `reports/*.md` 的表格（每行都有仓库链接）回填 `history.json`，每个仓库的首次出现周取它最早出现的那一期。不回填的话，前几期会把第 6–46 周已经上过榜的项目误标成新上榜，这正是这次改版要解决的问题。回填是一次性脚本，不进入每周流程。
-- **期号**：改成 ISO 周，格式 `YYYY-Www`，比如 `2026-W47`。顺手解决 `generateReportID` 里留下的 TODO。
+- **期号**：改成 ISO 周，格式 `YYYY-Www`，比如 `2026-W47`。`year` 是 ISO week-year，与 `id` 的 `YYYY` 来自同一次 `time.ISOWeek()` 调用，不是日历年。顺手解决 `generateReportID` 里留下的 TODO。
 - **项目详情**：对本周在榜的每个仓库调 GitHub REST API（工作流自带的 `GITHUB_TOKEN`）：
   - `GET /repos/{owner}/{repo}`：取 `created_at`、`stargazers_count`、`topics`。
   - `GET /repos/{owner}/{repo}/readme`：只对新项目和新上榜的项目调，取前约 4000 字符给模型读。
@@ -115,11 +115,12 @@ Item：
   "language": "javascript",
   "createdAt": "2026-10-30T00:00:00Z",
   "stars": 19546,
-  "starsThisWeek": 4234
+  "starsThisWeek": 4234,
+  "starsThisMonth": 9876
 }
 ```
 
-`starsThisWeek` 只在项目上了周榜时才有，没有时为 `null`，页面不显示，不显示成 0。每栏按 `starsThisWeek`（为 null 时按月增星）从高到低排。
+`starsThisWeek` 只在项目上了周榜时才有，没有时为 `null`，页面不显示，不显示成 0。`starsThisMonth` 同理记录月榜增星。每栏先按 `starsThisWeek`、再按 `starsThisMonth` 从高到低排，`null` 排在所有数字后面。
 
 ### 网站
 
@@ -157,9 +158,10 @@ AI 开源雷达 · 第 47 周：Agent 技能包扎堆
 
 ### 发布顺序
 
-1. 先改生成器并手动跑一次（`workflow_dispatch`），在 `data/weekly/` 产出第一份 JSON。
-2. 再合并网站的 PR。网站的 sync 依赖那份 JSON 存在。
-3. 在此之前要先恢复模型调用的额度或密钥。按「失败就直接失败」的规定，没有额度就不会产出这一期。
+1. 先合并生成器的改动。
+2. 恢复模型调用的额度或密钥。按「失败就直接失败」的规定，没有额度就不会产出这一期。
+3. 手动运行生成器（`workflow_dispatch`），确认在 `data/weekly/` 产出第一份 JSON。
+4. 再合并网站的 PR。网站的 sync 依赖那份 JSON 存在。
 
 ## 留给实现者决定的
 

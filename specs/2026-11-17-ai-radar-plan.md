@@ -73,7 +73,7 @@
 **Interfaces:**
 - Produces:
   - `func ReportID(t time.Time) string` in package `radar`.
-  - `func (h *models.History) Seen(key string) bool`, in `internal/models/helpers.go`.
+  - `func (h *History) Seen(key string) bool`, in `internal/models/helpers.go`.
   - `UpdateHistory` keeps its signature but never deletes entries.
 
 - [ ] **Step 1: Write the failing tests.**
@@ -174,7 +174,7 @@ func BuildIssue(now time.Time, cands []Candidate, copy Copy) Issue // Copy defin
 func WriteIssue(dir string, issue Issue) (string, error)            // writes <dir>/<ID>.json, 2-space indent, returns path
 ```
 
-`Item.StarsThisWeek` is set only when `Metadata.StarsThisWeek > 0`. The same rule applies to `StarsThisMonth`. The spec's JSON gains `starsThisMonth` here because sorting needs it. `Item.Source` is always `"github"`. `NewProjects` and `NewEntries` marshal as `[]`, never `null`.
+`Item.StarsThisWeek` is set when the repo appeared on the weekly trending page, including a reported value of 0; otherwise it is `null`. The same rule applies to `StarsThisMonth` and the monthly page. The spec's JSON gains `starsThisMonth` here because sorting needs it. `Item.Source` is always `"github"`. `NewProjects` and `NewEntries` marshal as `[]`, never `null`.
 
 - [ ] **Step 1: Write the failing tests.**
   - `TestUnseenDropsHistory`: an input of `{a/x seen, b/y unseen}` gives `[b/y]`.
@@ -284,7 +284,7 @@ func Run(ctx context.Context, cfg config.Config, deps Deps) (issuePath string, e
 4. for each unseen repo: `Repo`, then `Readme`, then `Assign`;
 5. `WriteRadarCopy`;
 6. `BuildIssue`, then `WriteIssue`;
-7. only after the file is written: update history with every candidate and save it.
+7. only after the file is written: update history from the full classified set and save it. This adds unseen candidates and advances `LastSeenReport` for repos that were already in history.
 
 Any error returns immediately, before history is touched.
 
@@ -431,12 +431,13 @@ Any error returns immediately, before history is touched.
   - Replace the navbar item with `{to: '/radar', label: 'AI 雷达', position: 'left'}`.
   - Add to `client-redirects` one `{from, to: '/radar'}` entry per path in the JSON file.
 
-`legacy-trending-routes.json` is a frozen list, not generated at build time. No new Markdown reports will ever exist, so a build-time list would only add a dependency on cloning the generator. Generate it once from today's `build/trending` (48 entries), as a sorted JSON array of paths:
+`legacy-trending-routes.json` is a frozen list, not generated at build time. No new Markdown reports will ever exist, so a build-time list would only add a dependency on cloning the generator. Generate it once from today's `build/trending` (64 entries), as a sorted JSON array of paths:
 - `/trending`
 - `/trending/<42 slugs>`
 - `/trending/page/2` … `/trending/page/5`
-- `/trending/tags`, `/trending/tags/ai`, `/trending/tags/github`, `/trending/tags/trending`
 - `/trending/archive`
+- `/trending/tags`
+- `/trending/tags/{ai,github,trending}` and `/trending/tags/{ai,github,trending}/page/2` … `/page/5`
 
 This deviates from the spec's 「构建时生成，不手写」, and is recorded here as a planning ruling.
 

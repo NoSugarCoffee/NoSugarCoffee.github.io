@@ -20,8 +20,12 @@ function syncIssues({sourceDir, targetDir}) {
         'The generator must have published at least one issue before the site can build.',
     );
   }
-  fs.rmSync(targetDir, {recursive: true, force: true});
   fs.mkdirSync(targetDir, {recursive: true});
+  for (const name of fs.readdirSync(targetDir)) {
+    if (ISSUE_FILE.test(name)) {
+      fs.rmSync(path.join(targetDir, name));
+    }
+  }
   for (const name of issues) {
     fs.copyFileSync(path.join(sourceDir, name), path.join(targetDir, name));
   }
@@ -38,7 +42,7 @@ function parseArgs(argv) {
   const args = {source: null, repo: DEFAULT_REPO_URL, target: DEFAULT_TARGET_DIR};
   for (let i = 0; i < argv.length; i += 2) {
     const key = argv[i].replace(/^--/, '');
-    if (!(key in args) || argv[i + 1] === undefined) {
+    if (!Object.hasOwn(args, key) || argv[i + 1] === undefined) {
       throw new Error(`Unknown or incomplete argument: ${argv[i]}`);
     }
     args[key] = argv[i + 1];
@@ -66,7 +70,7 @@ function main() {
   }
 }
 
-module.exports = {syncIssues};
+module.exports = {syncIssues, parseArgs};
 
 if (require.main === module) {
   try {

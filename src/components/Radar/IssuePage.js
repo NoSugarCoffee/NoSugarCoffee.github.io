@@ -1,12 +1,8 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import {issueTitle} from '@site/plugins/ai-radar/issues';
+import {issueTitle, formatChinaDate} from '@site/plugins/ai-radar/issues';
 import styles from './styles.module.css';
-
-function chinaDate(iso, options) {
-  return new Date(iso).toLocaleDateString('zh-CN', {timeZone: 'Asia/Shanghai', ...options});
-}
 
 function compact(n) {
   return n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k` : String(n);
@@ -49,7 +45,7 @@ function ProjectCard({item}) {
       <p className={styles.comment}>{item.comment}</p>
       <footer className={styles.cardFooter}>
         <StarLine item={item} />
-        <span>创建于 {chinaDate(item.createdAt, {month: '2-digit', day: '2-digit'})}</span>
+        <span>创建于 {formatChinaDate(item.createdAt, {month: '2-digit', day: '2-digit'})}</span>
       </footer>
     </article>
   );
@@ -76,7 +72,7 @@ export default function IssuePage({data}) {
       <main className="container margin-vert--lg">
         <h1>{title}</h1>
         <p className={styles.meta}>
-          {chinaDate(issue.generatedAt, {year: 'numeric', month: '2-digit', day: '2-digit'})} ·{' '}
+          {formatChinaDate(issue.generatedAt, {year: 'numeric', month: '2-digit', day: '2-digit'})} ·{' '}
           {issue.newProjects.length} 个新项目 · {issue.newEntries.length} 个新上榜
         </p>
         <p className={styles.summary}>{issue.summary}</p>
