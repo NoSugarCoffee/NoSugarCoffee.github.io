@@ -28,6 +28,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
         rehypePlugins: [],
       },
     ],
+    [require.resolve('./plugins/ai-radar'), {dataDir: 'radar-data'}],
     [
       require.resolve('./plugins/rss-feeds'),
       {
