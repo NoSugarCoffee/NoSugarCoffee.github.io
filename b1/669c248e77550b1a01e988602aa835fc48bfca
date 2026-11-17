@@ -1,0 +1,19 @@
+specs/2026-11-17-ai-radar-plan.md
+  s_42173c093319fa::t_66cde5ed3b706b 1-493
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "b1669c248e77550b1a01e988602aa835fc48bfca",
+  "prompts": {},
+  "sessions": {
+    "s_42173c093319fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04082371-feae-4a15-869f-46f83c62aabf",
+        "model": "unknown"
+      },
+      "human_author": "NoSugarCoffee <25247325+NoSugarCoffee@users.noreply.github.com>"
+    }
+  }
+}
