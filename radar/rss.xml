@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>AI 开源雷达</title>
+    <link>https://NoSugarCoffee.github.io/radar</link>
+    <description>每周新冒头的 AI 开源项目</description>
+    <language>zh-CN</language>
+    <item>
+      <title>AI 开源雷达 · 第 47 周：技能包长出工具链</title>
+      <link>https://NoSugarCoffee.github.io/radar/2026-W47</link>
+      <guid>https://NoSugarCoffee.github.io/radar/2026-W47</guid>
+      <pubDate>Tue, 17 Nov 2026 10:35:44 GMT</pubDate>
+      <description>本周近四成上榜项目围着 agent skill 转：写技能包的、做注册表与跨工具同步的都有，NVIDIA 还出了 SkillEvaluator 做评估。技能正从随手提示词变成可管、可评的工程资产。</description>
+    </item>
+  </channel>
+</rss>
