@@ -22,7 +22,7 @@ function syncIssues({sourceDir, targetDir}) {
   }
   fs.mkdirSync(targetDir, {recursive: true});
   for (const name of fs.readdirSync(targetDir)) {
-    if (ISSUE_FILE.test(name)) {
+    if (name.endsWith('.json')) {
       fs.rmSync(path.join(targetDir, name));
     }
   }

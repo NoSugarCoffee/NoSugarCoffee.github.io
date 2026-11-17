@@ -23,6 +23,7 @@ test('copies only weekly issue JSON files', (t) => {
   t.after(() => fs.rmSync(target, {recursive: true, force: true}));
   fs.writeFileSync(path.join(target, 'keep.txt'), 'do not delete');
   fs.writeFileSync(path.join(target, '2025-W01.json'), 'stale');
+  fs.writeFileSync(path.join(target, 'stale.json'), 'stale');
 
   const result = syncIssues({sourceDir: source, targetDir: target});
 
