@@ -18,10 +18,31 @@ function requireString(record, field, path, fileName) {
   }
 }
 
-function requireDate(record, field, path, fileName) {
+function isValidCalendarDate(year, month, day) {
+  const numericYear = Number(year);
+  const numericMonth = Number(month);
+  const numericDay = Number(day);
+  const leapYear = numericYear % 4 === 0 && (numericYear % 100 !== 0 || numericYear % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return numericMonth >= 1 && numericMonth <= 12 && numericDay >= 1 && numericDay <= daysInMonth[numericMonth - 1];
+}
+
+function requireIsoDate(record, field, path, fileName) {
   requireString(record, field, path, fileName);
-  if (Number.isNaN(Date.parse(record[field]))) {
-    throw new RssWeeklyDataError(fileName, `${path}.${field} "${record[field]}" is not a valid date`);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(record[field]);
+  if (!match || !isValidCalendarDate(match[1], match[2], match[3])) {
+    throw new RssWeeklyDataError(fileName, `${path}.${field} "${record[field]}" is not a valid ISO date`);
+  }
+}
+
+function requireIsoTimestamp(record, field, path, fileName) {
+  requireString(record, field, path, fileName);
+  const match =
+    /^(\d{4})-(\d{2})-(\d{2})T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:(?:0\d|1[0-3]):[0-5]\d|14:00))$/.exec(
+      record[field],
+    );
+  if (!match || !isValidCalendarDate(match[1], match[2], match[3]) || Number.isNaN(Date.parse(record[field]))) {
+    throw new RssWeeklyDataError(fileName, `${path}.${field} "${record[field]}" is not a valid ISO timestamp`);
   }
 }
 
@@ -49,9 +70,9 @@ function parseRssWeek(fileName, text) {
   if (`${week.id}.json` !== fileName) {
     throw new RssWeeklyDataError(fileName, `id "${week.id}" does not match the file name`);
   }
-  for (const field of ['week_start', 'week_end', 'generated_at']) {
-    requireDate(week, field, 'digest', fileName);
-  }
+  requireIsoDate(week, 'week_start', 'digest', fileName);
+  requireIsoDate(week, 'week_end', 'digest', fileName);
+  requireIsoTimestamp(week, 'generated_at', 'digest', fileName);
   requireString(week, 'opml', 'digest', fileName);
   if (!Array.isArray(week.groups)) {
     throw new RssWeeklyDataError(fileName, 'groups must be an array');
@@ -75,7 +96,7 @@ function parseRssWeek(fileName, text) {
         throw new RssWeeklyDataError(fileName, `${itemPath} must be an object`);
       }
       ITEM_FIELDS.forEach((field) => requireString(item, field, itemPath, fileName));
-      requireDate(item, 'published_at', itemPath, fileName);
+      requireIsoTimestamp(item, 'published_at', itemPath, fileName);
     });
   });
 

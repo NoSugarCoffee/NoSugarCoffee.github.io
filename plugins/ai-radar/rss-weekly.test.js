@@ -62,8 +62,16 @@ test('rejects malformed groups, items and failed feeds', () => {
 
 test('rejects invalid dates', () => {
   assert.throws(() => parseRssWeek('2026-W47.json', withFields({generated_at: 'today'})), /generated_at/);
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({generated_at: '2026-11-31T12:00:00+08:00'})),
+    /generated_at/,
+  );
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({week_start: '2026-11-31'})),
+    /week_start/,
+  );
   const badPublished = JSON.parse(FIXTURE);
-  badPublished.groups[0].items[0].published_at = 'yesterday';
+  badPublished.groups[0].items[0].published_at = '1';
   assert.throws(() => parseRssWeek('2026-W47.json', JSON.stringify(badPublished)), /published_at/);
 });
 
