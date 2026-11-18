@@ -22,8 +22,10 @@
 - 文件名必须与 `id` 一致。
 - 顶层必填：`id`、`week_start`、`week_end`、`generated_at`、`opml`、`groups`、`failed_feeds`。
 - 每个 group 必须有字符串 `category` 和数组 `items`。
-- 每个 item 必须有字符串 `title`、`url`、`source`、`published_at`、`summary_zh`；日期必须可解析。
-- 每个 failed feed 必须有字符串 `source`、`xmlUrl`、`error`。
+- `id` 必须是真实存在的 ISO 周（不是每一年都有 `W53`）。`week_start` 和 `week_end` 必须分别是该周的周一和周日（`YYYY-MM-DD`）。
+- `generated_at` 必须是带时间的 ISO 8601 时间戳（`Z` 或数字时区偏移；时和分必填，秒可选），不能只写日期。
+- 每个 item 必须有字符串 `title`、`url`、`source`、`published_at`、`summary_zh`。`published_at` 必须是带时间的 ISO 8601 时间戳（`Z` 或数字时区偏移；时和分必填，秒可选），不能只写日期。
+- 每个 failed feed 必须有字符串 `source`、`xmlUrl`、`error`。`xmlUrl` 是 schema 1 里唯一的 camelCase 字段，用来对齐 OPML 的 `xmlUrl`，不能改成 `xml_url`。
 - 未知字段被保留并忽略，允许 schema 1 增加可选字段。
 
 错误沿用雷达风格：抛出包含文件名和具体字段路径的异常，构建立即失败。
@@ -46,11 +48,11 @@
 
 ## 测试与验收
 
-- 纯函数测试覆盖有效 fixture、未知 schema、缺失字段、文件名不一致、嵌套 item/failed feed 和日期校验、排序及上海日期。
-- sync 测试覆盖复制、忽略无关文件、清理旧文件，以及 RSS 源缺失时成功。
+- 纯函数测试覆盖有效 fixture、未知 schema、缺失字段、文件名不一致、嵌套 item/failed feed、日历日期、不带秒的时间戳、不存在的 ISO 周、与 `id` 不一致的周范围、排序及上海日期。
+- sync 测试覆盖复制、忽略非 JSON 和非 `YYYY-Www.json`、清理旧文件、RSS 源缺失，以及已经存在的空 RSS 源。
 - 构建输出测试覆盖最新/指定路由、分类、文章字段、失败源、空周、无 RSS 文件时构建成功及栏目导航。
 - 用 fixture 同步后完整构建，并在浏览器中截图 `/radar/rss/2026-W47`。
 
 ## 生成器契约
 
-生成器必须写入题目给定的 `rss-weekly/1` 字段名（snake_case），文件名与 `id` 完全一致，并使用相同 ISO 周 id。`published_at` 和 `generated_at` 必须是可由 JavaScript `Date` 解析的 ISO 8601 字符串。空周仍应写合法文件，通常为 `groups: []` 或仅含空 `items` 的 groups。发布后继续发送 `repository_dispatch` 类型 `radar-updated`。
+生成器必须写入 schema `rss-weekly/1`。除 `failed_feeds[].xmlUrl` 外，字段名是 snake_case；`xmlUrl` 保持 camelCase，因为它对应 OPML 的 `xmlUrl`，校验器和生成器都按这个名字读取。文件名与 `id` 完全一致，且 `id` 必须是真实 ISO 周。`week_start` 和 `week_end` 是该周的周一与周日。`published_at` 和 `generated_at` 必须是带时间的 ISO 8601 时间戳，使用 `Z` 或数字时区偏移（时和分必填，秒可选）；只写日期会被拒绝。空周仍应写合法文件，通常为 `groups: []` 或仅含空 `items` 的 groups。发布后继续发送 `repository_dispatch` 类型 `radar-updated`。

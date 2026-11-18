@@ -73,7 +73,7 @@ The script reads each article's title, description, cover and publish time, and 
 The unit tests cover both radar collections and the sync script:
 
 ```bash
-node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js
+node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js plugins/ai-radar/index.test.js
 ```
 
 `scripts/check-radar.test.js` checks the built pages and every `/trending` redirect. Build with the sample issues first:
@@ -119,7 +119,7 @@ Pull requests run `.github/workflows/test-deploy.yml`, which builds without publ
 └── docusaurus.config.js    # Navbar, plugins and redirects
 ```
 
-`radar-data/` and `radar-rss-data/` are created by `yarn sync-reports` and are not committed. A missing or empty `data/rss-weekly/` is valid, but any JSON file present there must match schema `rss-weekly/1`. The filename and `id` must use the same ISO week (`YYYY-Www`), field names stay snake_case, and `generated_at` / `published_at` must be ISO 8601 dates. Empty weeks should still be valid files with no items. After publishing, the generator should continue sending repository dispatch type `radar-updated`; no separate event is required.
+`yarn sync-reports` copies upstream `ai-repo-insights/data/weekly/` into `radar-data/` and upstream `ai-repo-insights/data/rss-weekly/` into `radar-rss-data/`. Neither directory is committed. The build reads `radar-rss-data/`, not the upstream directory. A missing or empty upstream `data/rss-weekly/` is valid, but each `YYYY-Www.json` file copied into `radar-rss-data/` must match schema `rss-weekly/1`. The filename and `id` must be the same real ISO week. `week_start` and `week_end` must be that week's Monday and Sunday (`YYYY-MM-DD`). Field names are snake_case, except `failed_feeds[].xmlUrl`, which stays camelCase because it matches the OPML `xmlUrl` attribute. `generated_at` and `published_at` must be time-bearing ISO 8601 timestamps with `Z` or a numeric offset: hour and minute are required, seconds are optional, and date-only values are rejected. Empty weeks should still be valid files with no items. After publishing, the generator should continue sending repository dispatch type `radar-updated`; no separate event is required.
 
 ---
 

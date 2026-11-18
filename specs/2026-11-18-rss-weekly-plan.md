@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - No new npm dependencies.
-- The generator contract is schema `rss-weekly/1` with snake_case fields.
+- The generator contract is schema `rss-weekly/1`. Fields are snake_case except camelCase `failed_feeds[].xmlUrl`, which matches OPML.
 - Dates shown to readers use `Asia/Shanghai`.
 - Missing RSS data is valid; malformed present RSS data fails and names the file.
 - Keep the existing `radar-updated` repository dispatch event.
@@ -31,10 +31,10 @@
 **Interfaces:**
 - Produces `parseRssWeek(fileName, text)`, `sortRssWeeks(weeks)`, `rssWeekTitle(week)`, and `RssWeeklyDataError`.
 
-- [ ] Write tests that parse the fixture and reject unknown schema, missing top-level fields, filename mismatch, malformed nested records, and invalid dates.
-- [ ] Run `node --test plugins/ai-radar/rss-weekly.test.js`; confirm failure because the module is absent.
-- [ ] Implement strict required-field validation while allowing unknown optional fields.
-- [ ] Run the focused test and confirm it passes.
+- [x] Write tests that parse the fixture and reject unknown schema, missing top-level fields, filename mismatch, malformed nested records, and invalid dates.
+- [x] Run `node --test plugins/ai-radar/rss-weekly.test.js`; confirm failure because the module is absent.
+- [x] Implement strict required-field validation while allowing unknown optional fields.
+- [x] Run the focused test and confirm it passes.
 
 ### Task 2: Sync the optional RSS collection
 
@@ -48,10 +48,10 @@
 - Add `syncRssWeeks({sourceDir, targetDir}) -> {copied}`; a missing source means zero copied after stale JSON cleanup.
 - Add CLI options `--rss-source` and `--rss-target`; absent `--rss-source` is inferred as the sibling `rss-weekly` directory.
 
-- [ ] Add tests for RSS copying, unrelated-file filtering, stale cleanup, and missing source success.
-- [ ] Run `node --test scripts/sync-reports.test.js`; confirm the new assertions fail.
-- [ ] Implement the sync behavior and clone both generator data directories.
-- [ ] Run the focused test and confirm it passes.
+- [x] Add tests for RSS copying, unrelated-file filtering, stale cleanup, and missing source success.
+- [x] Run `node --test scripts/sync-reports.test.js`; confirm the new assertions fail.
+- [x] Implement the sync behavior and clone both generator data directories.
+- [x] Run the focused test and confirm it passes.
 
 ### Task 3: Add routes and archive data
 
@@ -66,10 +66,10 @@
 - Archive route data gains `rssWeeks`.
 - `/radar/rss` always exists, with `week: null` when no files exist.
 
-- [ ] Add build-output assertions for latest/specific RSS routes and archive links.
-- [ ] Run the build check against the old plugin and confirm the route assertions fail.
-- [ ] Load optional RSS JSON, create per-week route data with previous/next ids, and create an empty latest route when necessary.
-- [ ] Build with fixtures and confirm route files are generated.
+- [x] Add build-output assertions for latest/specific RSS routes and archive links.
+- [x] Run the build check against the old plugin and confirm the route assertions fail.
+- [x] Load optional RSS JSON, create per-week route data with previous/next ids, and create an empty latest route when necessary.
+- [x] Build with fixtures and confirm route files are generated.
 
 ### Task 4: Render the RSS digest and shared section navigation
 
@@ -83,12 +83,12 @@
 
 **Interfaces:**
 - `RadarNav` links to `/radar`, `/radar/rss`, and `/radar/archive`.
-- `RssWeeklyPage` accepts `{week, prevId, nextId}`.
+- `RssWeeklyPage` receives Docusaurus route data as `{data: {week, prevId, nextId}}`.
 
-- [ ] Add built-HTML assertions for category headings, linked title, source, Shanghai date, Chinese summary, one muted failed-feed line, empty-week copy, and shared navigation.
-- [ ] Run the build check and confirm the content assertions fail.
-- [ ] Implement accessible article lists, empty states, pager, and responsive styles.
-- [ ] Build and run the output tests.
+- [x] Add built-HTML assertions for category headings, linked title, source, Shanghai date, Chinese summary, one muted failed-feed line, empty-week copy, and shared navigation.
+- [x] Run the build check and confirm the content assertions fail.
+- [x] Implement accessible article lists, empty states, pager, and responsive styles.
+- [x] Build and run the output tests.
 
 ### Task 5: Deploy docs and full verification
 
@@ -97,9 +97,9 @@
 - Modify: `.github/workflows/test-deploy.yml`
 - Modify: `README.md`
 
-- [ ] Update workflow step names/comments without changing `radar-updated`.
-- [ ] Document routes, both synced directories, local fixture command, generator contract, and shared dispatch.
-- [ ] Verify a build without `radar-rss-data` succeeds.
-- [ ] Sync fixtures and run `node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js`, `yarn build`, and `node --test scripts/check-radar.test.js`.
-- [ ] Serve the built site and capture `/radar/rss/2026-W47`.
-- [ ] Commit with a conventional commit, push, and open the PR.
+- [x] Update workflow step names/comments without changing `radar-updated`.
+- [x] Document routes, both synced directories, local fixture command, generator contract, and shared dispatch.
+- [x] Verify a build without `radar-rss-data` succeeds.
+- [x] Sync fixtures and run `node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js plugins/ai-radar/index.test.js`, `yarn build`, and `node --test scripts/check-radar.test.js`.
+- [x] Serve the built site and capture `/radar/rss/2026-W47`.
+- [x] Commit with a conventional commit, push, and open the PR.

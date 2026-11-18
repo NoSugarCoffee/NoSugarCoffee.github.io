@@ -20,7 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      
+
+      - name: Run unit tests
+        run: node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js plugins/ai-radar/index.test.js
+
       - name: Sync AI radar reports
         run: yarn sync-reports
         
