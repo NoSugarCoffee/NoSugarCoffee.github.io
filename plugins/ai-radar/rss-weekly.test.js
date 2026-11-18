@@ -151,7 +151,7 @@ test('requires week_start and week_end to be the ISO Monday and Sunday', () => {
     /week_end/,
   );
   assert.throws(
-    () => parseRssWeek('2026-W47.json', withFields({week_start: '2026-11-17', week_end: '2026-11-23'})),
+    () => parseRssWeek('2026-W47.json', withFields({week_start: '2026-11-17', week_end: '2026-11-22'})),
     /week_start/,
   );
 });
