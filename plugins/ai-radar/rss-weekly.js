@@ -37,13 +37,35 @@ function requireIsoDate(record, field, path, fileName) {
 
 function requireIsoTimestamp(record, field, path, fileName) {
   requireString(record, field, path, fileName);
+  // Hour and minute are required. Seconds and a fraction are optional so both
+  // 2026-11-22T21:30Z and 2026-11-22T21:30:00+08:00 are accepted. A zone is
+  // required: Z or a numeric offset. Date-only values are not timestamps.
   const match =
-    /^(\d{4})-(\d{2})-(\d{2})T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:(?:0\d|1[0-3]):[0-5]\d|14:00))$/.exec(
+    /^(\d{4})-(\d{2})-(\d{2})T(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z|[+-](?:(?:0\d|1[0-3]):[0-5]\d|14:00))$/.exec(
       record[field],
     );
   if (!match || !isValidCalendarDate(match[1], match[2], match[3]) || Number.isNaN(Date.parse(record[field]))) {
     throw new RssWeeklyDataError(fileName, `${path}.${field} "${record[field]}" is not a valid ISO timestamp`);
   }
+}
+
+function formatUtcDate(utcMs) {
+  const date = new Date(utcMs);
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${date.getUTCFullYear()}-${month}-${day}`;
+}
+
+// Monday and Sunday of an ISO week, or null when that week-year does not exist.
+// Thursday of the week must fall in the ISO year; that rejects 2025-W53.
+function isoWeekRange(year, week) {
+  const jan4Utc = Date.UTC(year, 0, 4);
+  const jan4Weekday = new Date(jan4Utc).getUTCDay() || 7;
+  const monday = jan4Utc - (jan4Weekday - 1) * 86400000 + (week - 1) * 7 * 86400000;
+  if (new Date(monday + 3 * 86400000).getUTCFullYear() !== year) {
+    return null;
+  }
+  return {start: formatUtcDate(monday), end: formatUtcDate(monday + 6 * 86400000)};
 }
 
 function parseRssWeek(fileName, text) {
@@ -64,14 +86,25 @@ function parseRssWeek(fileName, text) {
       throw new RssWeeklyDataError(fileName, `missing required field "${field}"`);
     }
   }
-  if (typeof week.id !== 'string' || !/^\d{4}-W(?:0[1-9]|[1-4]\d|5[0-3])$/.test(week.id)) {
+  const idMatch = typeof week.id === 'string' ? /^(\d{4})-W(0[1-9]|[1-4]\d|5[0-3])$/.exec(week.id) : null;
+  if (!idMatch) {
     throw new RssWeeklyDataError(fileName, `id "${week.id}" must use YYYY-Www`);
+  }
+  const weekRange = isoWeekRange(Number(idMatch[1]), Number(idMatch[2]));
+  if (!weekRange) {
+    throw new RssWeeklyDataError(fileName, `id "${week.id}" is not an ISO week`);
   }
   if (`${week.id}.json` !== fileName) {
     throw new RssWeeklyDataError(fileName, `id "${week.id}" does not match the file name`);
   }
   requireIsoDate(week, 'week_start', 'digest', fileName);
   requireIsoDate(week, 'week_end', 'digest', fileName);
+  if (week.week_start !== weekRange.start || week.week_end !== weekRange.end) {
+    throw new RssWeeklyDataError(
+      fileName,
+      `week_start "${week.week_start}" and week_end "${week.week_end}" do not match ISO week "${week.id}" (${weekRange.start} through ${weekRange.end})`,
+    );
+  }
   requireIsoTimestamp(week, 'generated_at', 'digest', fileName);
   requireString(week, 'opml', 'digest', fileName);
   if (!Array.isArray(week.groups)) {

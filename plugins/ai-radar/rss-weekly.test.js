@@ -67,12 +67,93 @@ test('rejects invalid dates', () => {
     /generated_at/,
   );
   assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({generated_at: '2026-11-22'})),
+    /generated_at/,
+  );
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({generated_at: '2026-11-22T21:30:00'})),
+    /generated_at/,
+  );
+  assert.throws(
     () => parseRssWeek('2026-W47.json', withFields({week_start: '2026-11-31'})),
     /week_start/,
+  );
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({week_end: '2026-11-31'})),
+    /week_end/,
   );
   const badPublished = JSON.parse(FIXTURE);
   badPublished.groups[0].items[0].published_at = '1';
   assert.throws(() => parseRssWeek('2026-W47.json', JSON.stringify(badPublished)), /published_at/);
+});
+
+test('accepts hour-minute ISO timestamps with Z or a numeric offset', () => {
+  const week = parseRssWeek('2026-W47.json', withFields({generated_at: '2026-11-22T21:30Z'}));
+  assert.strictEqual(week.generated_at, '2026-11-22T21:30Z');
+
+  const withOffset = JSON.parse(FIXTURE);
+  withOffset.generated_at = '2026-11-22T21:30:00.123+08:00';
+  withOffset.groups[0].items[0].published_at = '2026-11-16T18:30+08:00';
+  const parsed = parseRssWeek('2026-W47.json', JSON.stringify(withOffset));
+  assert.strictEqual(parsed.generated_at, '2026-11-22T21:30:00.123+08:00');
+  assert.strictEqual(parsed.groups[0].items[0].published_at, '2026-11-16T18:30+08:00');
+});
+
+test('rejects a week number the ISO year does not have', () => {
+  assert.throws(
+    () =>
+      parseRssWeek(
+        '2025-W53.json',
+        withFields({
+          id: '2025-W53',
+          week_start: '2025-12-29',
+          week_end: '2026-01-04',
+        }),
+      ),
+    /2025-W53.*not an ISO week/,
+  );
+});
+
+test('requires week_start and week_end to be the ISO Monday and Sunday', () => {
+  const emptyWeek = fs.readFileSync(
+    path.join(__dirname, '../../scripts/fixtures/radar/data/rss-weekly/2026-W46.json'),
+    'utf8',
+  );
+  assert.strictEqual(parseRssWeek('2026-W46.json', emptyWeek).week_end, '2026-11-15');
+
+  const crossYear = parseRssWeek(
+    '2026-W01.json',
+    withFields({id: '2026-W01', week_start: '2025-12-29', week_end: '2026-01-04'}),
+  );
+  assert.strictEqual(crossYear.week_start, '2025-12-29');
+
+  const week53 = parseRssWeek(
+    '2026-W53.json',
+    withFields({id: '2026-W53', week_start: '2026-12-28', week_end: '2027-01-03'}),
+  );
+  assert.strictEqual(week53.id, '2026-W53');
+  const leapWeek53 = parseRssWeek(
+    '2020-W53.json',
+    withFields({id: '2020-W53', week_start: '2020-12-28', week_end: '2021-01-03'}),
+  );
+  assert.strictEqual(leapWeek53.week_start, '2020-12-28');
+  assert.throws(
+    () =>
+      parseRssWeek(
+        '2021-W53.json',
+        withFields({id: '2021-W53', week_start: '2021-12-27', week_end: '2022-01-02'}),
+      ),
+    /2021-W53.*not an ISO week/,
+  );
+
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({week_end: '2026-11-21'})),
+    /week_end/,
+  );
+  assert.throws(
+    () => parseRssWeek('2026-W47.json', withFields({week_start: '2026-11-17', week_end: '2026-11-23'})),
+    /week_start/,
+  );
 });
 
 test('sorts RSS weeks newest first and creates a title', () => {
