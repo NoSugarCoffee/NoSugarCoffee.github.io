@@ -22,4 +22,5 @@ yarn-error.log*
 
 # Synced at build time by `yarn sync-reports`
 /radar-data
+/radar-rss-data
 /reports

@@ -1,0 +1,48 @@
+{
+  "schema": "rss-weekly/1",
+  "id": "2026-W47",
+  "week_start": "2026-11-16",
+  "week_end": "2026-11-22",
+  "generated_at": "2026-11-22T21:30:00+08:00",
+  "opml": "https://raw.githubusercontent.com/NoSugarCoffee/rss-feeds/main/feeds.opml",
+  "groups": [
+    {
+      "category": "Blogs",
+      "items": [
+        {
+          "title": "The Architecture of Open Source Applications",
+          "url": "https://martinfowler.com/articles/example-architecture.html",
+          "source": "Martin Fowler",
+          "published_at": "2026-11-16T18:30:00Z",
+          "summary_zh": "从真实项目拆解架构决策，重点是边界如何随需求演进。"
+        },
+        {
+          "title": "Designing agent loops that stop",
+          "url": "https://simonwillison.net/2026/Nov/18/agent-loops/",
+          "source": "Simon Willison",
+          "published_at": "2026-11-18T09:00:00-05:00",
+          "summary_zh": "用明确预算和终止条件约束 agent 循环，避免任务无限扩张。"
+        }
+      ]
+    },
+    {
+      "category": "Research",
+      "items": [
+        {
+          "title": "Reliable tool use under partial failure",
+          "url": "https://example.com/reliable-tool-use",
+          "source": "AI Lab Notes",
+          "published_at": "2026-11-20T23:30:00Z",
+          "summary_zh": "把工具失败纳入规划状态，能显著提升长任务的可恢复性。"
+        }
+      ]
+    }
+  ],
+  "failed_feeds": [
+    {
+      "source": "Unavailable Notes",
+      "xmlUrl": "https://example.com/feed.xml",
+      "error": "HTTP 503"
+    }
+  ]
+}

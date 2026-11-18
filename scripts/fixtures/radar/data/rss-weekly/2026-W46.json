@@ -1,0 +1,10 @@
+{
+  "schema": "rss-weekly/1",
+  "id": "2026-W46",
+  "week_start": "2026-11-09",
+  "week_end": "2026-11-15",
+  "generated_at": "2026-11-15T22:00:00+08:00",
+  "opml": "https://raw.githubusercontent.com/NoSugarCoffee/rss-feeds/main/feeds.opml",
+  "groups": [],
+  "failed_feeds": []
+}
