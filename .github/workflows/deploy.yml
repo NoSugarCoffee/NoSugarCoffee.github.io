@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  # Sent by ai-repo-insights' weekly workflow after it publishes a radar issue.
+  # Sent by ai-repo-insights after it publishes radar and/or RSS weekly data.
   repository_dispatch:
     types: [radar-updated]
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       
-      - name: Sync AI trending reports
+      - name: Sync AI radar reports
         run: yarn sync-reports
         
       - name: Build website

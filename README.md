@@ -19,7 +19,8 @@
 |------|---------------|------------------------------|
 | **Home** `/` | The 公众号 「代码之序」 with its QR code, and the 6 newest articles | `src/data/wechat-articles.json` |
 | **文章** `/articles` | Every 公众号 article as a card. Each card opens the article in WeChat | `src/data/wechat-articles.json` |
-| **AI 雷达** `/radar` | One issue per ISO week. 🆕 new projects (created in the last 30 days) and ↗ repositories on GitHub trending for the first time, each with a one-line comment. Past issues are at `/radar/archive`, and the RSS feed is at `/radar/rss.xml` | Weekly JSON from [ai-repo-insights](https://github.com/NoSugarCoffee/ai-repo-insights) |
+| **AI 雷达** `/radar` | One issue per ISO week. 🆕 new projects (created in the last 30 days) and ↗ repositories on GitHub trending for the first time, each with a one-line comment. Its subscription feed is at `/radar/rss.xml` | `data/weekly/*.json` from [ai-repo-insights](https://github.com/NoSugarCoffee/ai-repo-insights) |
+| **RSS 周报** `/radar/rss` | A separate weekly digest of subscribed articles, grouped by category with Chinese one-line summaries. Specific weeks use `/radar/rss/<YYYY-Www>`; both kinds of past issue are at `/radar/archive` | `data/rss-weekly/*.json` from [ai-repo-insights](https://github.com/NoSugarCoffee/ai-repo-insights) |
 | **归档** `/archive` | Older blog posts on Go and Maven | `blog/` |
 | **订阅** `/feeds` | The RSS feeds I read, grouped | `feeds.opml` in [rss-feeds](https://github.com/NoSugarCoffee/rss-feeds), read at build time |
 
@@ -35,13 +36,13 @@ The site uses yarn 1, as CI does. Install the dependencies:
 yarn install
 ```
 
-The build needs at least one radar issue in `radar-data/`. Copy the published issues from ai-repo-insights:
+The build needs at least one open-source radar issue in `radar-data/`. RSS weekly data is optional. Copy both published collections from ai-repo-insights:
 
 ```bash
 yarn sync-reports
 ```
 
-If ai-repo-insights has no issue yet, copy the two sample issues instead:
+If ai-repo-insights has no issue yet, copy the sample open-source and RSS issues instead:
 
 ```bash
 node scripts/sync-reports.js --source scripts/fixtures/radar/data/weekly
@@ -69,10 +70,10 @@ The script reads each article's title, description, cover and publish time, and 
 
 ## 🧪 Test
 
-The unit tests cover the radar plugin and the sync script:
+The unit tests cover both radar collections and the sync script:
 
 ```bash
-node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js
+node --test scripts/sync-reports.test.js plugins/ai-radar/issues.test.js plugins/ai-radar/rss-weekly.test.js
 ```
 
 `scripts/check-radar.test.js` checks the built pages and every `/trending` redirect. Build with the sample issues first:
@@ -90,7 +91,7 @@ node --test scripts/check-radar.test.js
 `.github/workflows/deploy.yml` builds the site and publishes it to GitHub Pages. It runs in three cases:
 
 - A push to `master`.
-- A `radar-updated` repository dispatch. The weekly workflow in ai-repo-insights sends it after it publishes a new issue.
+- A `radar-updated` repository dispatch. The workflow in ai-repo-insights sends this same event after it publishes open-source radar data, RSS weekly data, or both.
 - A manual run from the Actions tab.
 
 Pull requests run `.github/workflows/test-deploy.yml`, which builds without publishing.
@@ -103,10 +104,10 @@ Pull requests run `.github/workflows/test-deploy.yml`, which builds without publ
 .
 ├── blog/                   # 归档 posts
 ├── plugins/
-│   ├── ai-radar/           # Validates radar issues, adds /radar pages and the RSS feed
+│   ├── ai-radar/           # Validates both weekly collections and adds /radar pages
 │   └── rss-feeds/          # Reads feeds.opml from the rss-feeds repo at build time
 ├── scripts/
-│   ├── sync-reports.js     # Copies radar issues from ai-repo-insights into radar-data/
+│   ├── sync-reports.js     # Copies open-source and RSS weekly JSON from ai-repo-insights
 │   ├── add-wechat-article.js
 │   └── fixtures/           # Sample radar issues for local builds and tests
 ├── specs/                  # Design docs and implementation plans
@@ -118,7 +119,7 @@ Pull requests run `.github/workflows/test-deploy.yml`, which builds without publ
 └── docusaurus.config.js    # Navbar, plugins and redirects
 ```
 
-`radar-data/` is created by `yarn sync-reports` and is not committed.
+`radar-data/` and `radar-rss-data/` are created by `yarn sync-reports` and are not committed. A missing or empty `data/rss-weekly/` is valid, but any JSON file present there must match schema `rss-weekly/1`. The filename and `id` must use the same ISO week (`YYYY-Www`), field names stay snake_case, and `generated_at` / `published_at` must be ISO 8601 dates. Empty weeks should still be valid files with no items. After publishing, the generator should continue sending repository dispatch type `radar-updated`; no separate event is required.
 
 ---
 

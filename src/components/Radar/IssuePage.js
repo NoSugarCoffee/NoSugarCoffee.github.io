@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import {issueTitle, formatChinaDate} from '@site/plugins/ai-radar/issues';
+import RadarNav from './RadarNav';
 import styles from './styles.module.css';
 
 function compact(n) {
@@ -70,6 +71,7 @@ export default function IssuePage({data}) {
   return (
     <Layout title={title} description={issue.summary}>
       <main className="container margin-vert--lg">
+        <RadarNav />
         <h1>{title}</h1>
         <p className={styles.meta}>
           {formatChinaDate(issue.generatedAt, {year: 'numeric', month: '2-digit', day: '2-digit'})} ·{' '}

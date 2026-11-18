@@ -6,6 +6,17 @@
   font-size: 1.125rem;
 }
 
+.sectionNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
@@ -88,4 +99,56 @@
   margin-left: 0.75rem;
   font-size: 0.875rem;
   color: var(--ifm-color-emphasis-600);
+}
+
+.emptyState {
+  padding: 1rem;
+  border: 1px dashed var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-card-border-radius);
+  color: var(--ifm-color-emphasis-700);
+}
+
+.rssGroup {
+  margin-top: 2rem;
+}
+
+.rssList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rssItem {
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-card-border-radius);
+  background: var(--ifm-card-background-color);
+}
+
+.rssTitle {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.rssMeta {
+  margin-bottom: 0.65rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
+}
+
+.rssSummary {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.failedFeeds {
+  margin-top: 2rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
 }

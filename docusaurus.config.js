@@ -14,7 +14,10 @@ import legacyTrendingRoutes from './src/data/legacy-trending-routes.json';
   organizationName: 'NoSugarCoffee', // Usually your GitHub org/user name.
   projectName: 'shixu', // Usually your repo name.
   plugins: [
-    [require.resolve('./plugins/ai-radar'), {dataDir: 'radar-data'}],
+    [
+      require.resolve('./plugins/ai-radar'),
+      {dataDir: 'radar-data', rssDataDir: 'radar-rss-data'},
+    ],
     [
       require.resolve('./plugins/rss-feeds'),
       {

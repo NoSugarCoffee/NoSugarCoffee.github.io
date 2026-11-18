@@ -9,8 +9,11 @@ const BUILD = path.join(__dirname, '..', 'build');
 const LEGACY = require('../src/data/legacy-trending-routes.json');
 
 function page(route) {
-  // Docusaurus 3.0.0 leaves stray NUL bytes in SSR output; strip them so text matching works.
-  return fs.readFileSync(path.join(BUILD, route, 'index.html'), 'utf8').replace(/\0/g, '');
+  // Normalize Docusaurus SSR separators so assertions can match reader-visible text.
+  return fs
+    .readFileSync(path.join(BUILD, route, 'index.html'), 'utf8')
+    .replace(/\0/g, '')
+    .replace(/<!-- -->/g, '');
 }
 
 describe('built radar site', {skip: !fs.existsSync(BUILD)}, () => {
@@ -37,6 +40,35 @@ describe('built radar site', {skip: !fs.existsSync(BUILD)}, () => {
     const archive = page('radar/archive');
     assert.match(archive, /第 47 周/);
     assert.match(archive, /第 46 周/);
+    assert.match(archive, /RSS 周报往期/);
+    assert.match(archive, /\/radar\/rss\/2026-W47/);
+  });
+
+  test('an RSS week groups linked articles with Shanghai dates and summaries', () => {
+    const html = page('radar/rss/2026-W47');
+    assert.match(html, /RSS 周报 · 2026 年第 47 周/);
+    assert.match(html, /Blogs/);
+    assert.match(html, /Research/);
+    assert.match(html, /The Architecture of Open Source Applications/);
+    assert.match(html, /href="https:\/\/martinfowler\.com\/articles\/example-architecture\.html"/);
+    assert.match(html, /Martin Fowler/);
+    assert.match(html, /2026-11-17/);
+    assert.match(html, /从真实项目拆解架构决策/);
+    assert.match(html, /1 个订阅源抓取失败：Unavailable Notes/);
+    assert.strictEqual((html.match(/data-rss-item/g) || []).length, 3);
+  });
+
+  test('the latest RSS route uses the newest week and an empty week is friendly', () => {
+    assert.match(page('radar/rss'), /2026 年第 47 周/);
+    const empty = page('radar/rss/2026-W46');
+    assert.match(empty, /本周没有收录到新文章/);
+    assert.doesNotMatch(empty, /data-rss-item/);
+  });
+
+  test('radar pages link to the separate RSS weekly section', () => {
+    const html = page('radar');
+    assert.match(html, /href="\/radar\/rss"/);
+    assert.match(html, /RSS 周报/);
   });
 
   test('every old /trending URL redirects to /radar', () => {
