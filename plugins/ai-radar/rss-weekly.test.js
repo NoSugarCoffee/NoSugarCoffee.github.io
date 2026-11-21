@@ -6,6 +6,9 @@ const {
   parseRssWeek,
   sortRssWeeks,
   rssWeekTitle,
+  isStubSummary,
+  isStubDigest,
+  filterPublishableRssWeeks,
   RssWeeklyDataError,
 } = require('./rss-weekly');
 
@@ -160,4 +163,84 @@ test('sorts RSS weeks newest first and creates a title', () => {
   const ids = sortRssWeeks([{id: '2026-W47'}, {id: '2027-W01'}, {id: '2026-W53'}]).map(({id}) => id);
   assert.deepStrictEqual(ids, ['2027-W01', '2026-W53', '2026-W47']);
   assert.strictEqual(rssWeekTitle({id: '2026-W07'}), 'RSS 周报 · 2026 年第 7 周');
+});
+
+test('detects upstream stub summaries and stub digests', () => {
+  assert.strictEqual(
+    isStubSummary('【stub】文章《A deep dive into ChatGPT Sites》来自Flavio Copes，摘要待生成。'),
+    true,
+  );
+  assert.strictEqual(isStubSummary('从真实项目拆解架构决策，重点是边界如何随需求演进。'), false);
+
+  const stubDigest = JSON.parse(
+    withFields({
+      summary_mode: 'stub',
+      groups: [
+        {
+          category: 'Blogs',
+          items: [
+            {
+              title: 'A deep dive into ChatGPT Sites',
+              url: 'https://flaviocopes.com/chatgpt-sites/',
+              source: 'Flavio Copes',
+              published_at: '2026-11-17T17:00:00+08:00',
+              summary_zh: '【stub】文章《A deep dive into ChatGPT Sites》来自Flavio Copes，摘要待生成。',
+            },
+          ],
+        },
+      ],
+      failed_feeds: [],
+    }),
+  );
+  assert.strictEqual(isStubDigest(stubDigest), true);
+
+  const unmarkedAllStubs = JSON.parse(FIXTURE);
+  for (const group of unmarkedAllStubs.groups) {
+    for (const item of group.items) {
+      item.summary_zh = `【stub】文章《${item.title}》来自${item.source}，摘要待生成。`;
+    }
+  }
+  assert.strictEqual(isStubDigest(unmarkedAllStubs), true);
+  assert.strictEqual(isStubDigest(JSON.parse(FIXTURE)), false);
+});
+
+test('filterPublishableRssWeeks skips stub digests and strips leftover stub items', () => {
+  const warnings = [];
+  const real = parseRssWeek('2026-W47.json', FIXTURE);
+  const stub = parseRssWeek(
+    '2026-W47.json',
+    withFields({
+      summary_mode: 'stub',
+      groups: [
+        {
+          category: 'Blogs',
+          items: [
+            {
+              title: 'A deep dive into ChatGPT Sites',
+              url: 'https://flaviocopes.com/chatgpt-sites/',
+              source: 'Flavio Copes',
+              published_at: '2026-11-17T17:00:00+08:00',
+              summary_zh: '【stub】文章《A deep dive into ChatGPT Sites》来自Flavio Copes，摘要待生成。',
+            },
+          ],
+        },
+      ],
+      failed_feeds: [],
+    }),
+  );
+  const mixed = JSON.parse(FIXTURE);
+  mixed.groups[0].items[0].summary_zh =
+    '【stub】文章《The Architecture of Open Source Applications》来自Martin Fowler，摘要待生成。';
+
+  const filtered = filterPublishableRssWeeks([stub, mixed, real], {
+    warn: (message) => warnings.push(message),
+  });
+
+  assert.strictEqual(filtered.length, 2);
+  assert.strictEqual(filtered[0].id, '2026-W47');
+  assert.strictEqual(filtered[0].groups[0].items.length, 1);
+  assert.strictEqual(filtered[0].groups[0].items[0].title, 'Designing agent loops that stop');
+  assert.strictEqual(filtered[1].groups[0].items.length, 2);
+  assert.ok(warnings.some((message) => /Skipping RSS weekly digest 2026-W47/.test(message)));
+  assert.ok(warnings.some((message) => /Removed 1 stub summary item/.test(message)));
 });

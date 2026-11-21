@@ -152,4 +152,71 @@ function rssWeekTitle(week) {
   return `RSS 周报 · ${year} 年第 ${Number(weekNumber)} 周`;
 }
 
-module.exports = {RssWeeklyDataError, parseRssWeek, sortRssWeeks, rssWeekTitle};
+// Upstream `ai-repo-insights` may commit offline samples with
+// summary_mode=stub and 【stub】…摘要待生成。 placeholders when LLM_API_KEY
+// is unavailable. Those are not reader-facing digests; skip them (and any
+// leftover stub items) so /radar/rss never publishes placeholder copy.
+const STUB_SUMMARY_RE = /^【stub】.*摘要待生成。$/;
+
+function isStubSummary(summaryZh) {
+  return typeof summaryZh === 'string' && STUB_SUMMARY_RE.test(summaryZh.trim());
+}
+
+function rssWeekItems(week) {
+  if (!Array.isArray(week?.groups)) {
+    return [];
+  }
+  return week.groups.flatMap((group) => (Array.isArray(group.items) ? group.items : []));
+}
+
+function isStubDigest(week) {
+  if (week?.summary_mode === 'stub') {
+    return true;
+  }
+  const items = rssWeekItems(week);
+  return items.length > 0 && items.every((item) => isStubSummary(item.summary_zh));
+}
+
+function stripStubItems(week) {
+  const groups = week.groups.map((group) => ({
+    ...group,
+    items: group.items.filter((item) => !isStubSummary(item.summary_zh)),
+  }));
+  return {...week, groups};
+}
+
+// Drop whole stub digests. Keep real digests, but remove any stub items so a
+// mixed file cannot leak placeholder text. Empty weeks after stripping stay
+// valid (same as an upstream empty week).
+function filterPublishableRssWeeks(weeks, {warn = console.warn} = {}) {
+  const publishable = [];
+  for (const week of weeks) {
+    if (isStubDigest(week)) {
+      warn(
+        `Skipping RSS weekly digest ${week.id}: stub summaries are not published ` +
+          `(summary_mode=${JSON.stringify(week.summary_mode ?? null)}). ` +
+          'Regenerate in ai-repo-insights without -stub-summaries.',
+      );
+      continue;
+    }
+    const cleaned = stripStubItems(week);
+    const removed = rssWeekItems(week).length - rssWeekItems(cleaned).length;
+    if (removed > 0) {
+      warn(
+        `Removed ${removed} stub summary item(s) from RSS weekly digest ${week.id} before publish.`,
+      );
+    }
+    publishable.push(cleaned);
+  }
+  return publishable;
+}
+
+module.exports = {
+  RssWeeklyDataError,
+  parseRssWeek,
+  sortRssWeeks,
+  rssWeekTitle,
+  isStubSummary,
+  isStubDigest,
+  filterPublishableRssWeeks,
+};
