@@ -228,11 +228,17 @@ test('filterPublishableRssWeeks skips stub digests and strips leftover stub item
       failed_feeds: [],
     }),
   );
+  const unmarkedAllStubs = JSON.parse(FIXTURE);
+  for (const group of unmarkedAllStubs.groups) {
+    for (const item of group.items) {
+      item.summary_zh = `【stub】文章《${item.title}》来自${item.source}，摘要待生成。`;
+    }
+  }
   const mixed = JSON.parse(FIXTURE);
   mixed.groups[0].items[0].summary_zh =
     '【stub】文章《The Architecture of Open Source Applications》来自Martin Fowler，摘要待生成。';
 
-  const filtered = filterPublishableRssWeeks([stub, mixed, real], {
+  const filtered = filterPublishableRssWeeks([stub, unmarkedAllStubs, mixed, real], {
     warn: (message) => warnings.push(message),
   });
 
@@ -241,6 +247,9 @@ test('filterPublishableRssWeeks skips stub digests and strips leftover stub item
   assert.strictEqual(filtered[0].groups[0].items.length, 1);
   assert.strictEqual(filtered[0].groups[0].items[0].title, 'Designing agent loops that stop');
   assert.strictEqual(filtered[1].groups[0].items.length, 2);
-  assert.ok(warnings.some((message) => /Skipping RSS weekly digest 2026-W47/.test(message)));
+  assert.strictEqual(
+    warnings.filter((message) => /Skipping RSS weekly digest 2026-W47/.test(message)).length,
+    2,
+  );
   assert.ok(warnings.some((message) => /Removed 1 stub summary item/.test(message)));
 });
