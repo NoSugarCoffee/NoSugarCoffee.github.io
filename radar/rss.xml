@@ -6,6 +6,13 @@
     <description>每周新冒头的 AI 开源项目</description>
     <language>zh-CN</language>
     <item>
+      <title>AI 开源雷达 · 第 48 周：Agent 编排扎堆</title>
+      <link>https://NoSugarCoffee.github.io/radar/2026-W48</link>
+      <guid>https://NoSugarCoffee.github.io/radar/2026-W48</guid>
+      <pubDate>Mon, 23 Nov 2026 05:47:19 GMT</pubDate>
+      <description>本周新上榜的项目多围着编码 agent 转：AWS 的 CAO 用隔离 tmux 会话把 Claude Code、Codex 编排成多 agent 并行干活；bend 则要求 AI 改代码时附上数学证明。</description>
+    </item>
+    <item>
       <title>AI 开源雷达 · 第 47 周：技能包长出工具链</title>
       <link>https://NoSugarCoffee.github.io/radar/2026-W47</link>
       <guid>https://NoSugarCoffee.github.io/radar/2026-W47</guid>
