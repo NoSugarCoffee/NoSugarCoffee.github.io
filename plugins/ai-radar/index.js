@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 const {parseIssue, sortIssues, issueTitle, buildRss} = require('./issues');
-const {parseRssWeek, sortRssWeeks, rssWeekTitle} = require('./rss-weekly');
+const {parseRssWeek, sortRssWeeks, rssWeekTitle, filterPublishableRssWeeks} = require('./rss-weekly');
 
 module.exports = function aiRadarPlugin(context, options) {
   const dataDir = path.resolve(context.siteDir, options.dataDir);
@@ -30,8 +30,8 @@ module.exports = function aiRadarPlugin(context, options) {
       const rssFiles = fs.existsSync(rssDataDir)
         ? fs.readdirSync(rssDataDir).filter((name) => name.endsWith('.json'))
         : [];
-      const rssWeeks = rssFiles.map((name) =>
-        parseRssWeek(name, fs.readFileSync(path.join(rssDataDir, name), 'utf8')),
+      const rssWeeks = filterPublishableRssWeeks(
+        rssFiles.map((name) => parseRssWeek(name, fs.readFileSync(path.join(rssDataDir, name), 'utf8'))),
       );
       return {issues: sortIssues(issues), rssWeeks: sortRssWeeks(rssWeeks)};
     },
